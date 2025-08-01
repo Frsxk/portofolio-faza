@@ -14,10 +14,11 @@ export default function About() {
     {
       title: "Information Systems Student",
       company: "University of Indonesia",
-      period: "2022 - Present",
+      period: "2024 - Present",
       description: "Currently pursuing a Bachelor's degree in Information Systems, focusing on software development, database management, and system analysis."
     },
     {
+      // amazonq-ignore-next-line
       title: "Experience Placeholder 1",
       company: "Company Name",
       period: "Year - Year",
@@ -45,7 +46,7 @@ export default function About() {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="py-20 gradient-bg">
+      <section className="py-20 gradient-bg -mt-16 pt-36">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 animate-fade-in">
             About Me

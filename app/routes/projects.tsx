@@ -1,6 +1,7 @@
 import type { Route } from "./+types/projects";
 import Layout from "../components/Layout";
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
+import { PROJECTS } from "~/utils/projectData";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -11,61 +12,17 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Projects() {
-  const [filter, setFilter] = useState("All");
-
-  const projects = [
-    {
-      id: 1,
-      title: "Project Title 1",
-      description: "A comprehensive web application built with modern technologies.",
-      image: "https://via.placeholder.com/600x400/e91e63/ffffff?text=Project+1",
-      technologies: ["React", "Node.js", "JavaScript"],
-      category: "Web Development",
-      github: "#",
-      live: "#",
-      featured: true
-    },
-    {
-      id: 2,
-      title: "Project Title 2",
-      description: "An innovative mobile-first application.",
-      image: "https://via.placeholder.com/600x400/c2185b/ffffff?text=Project+2",
-      technologies: ["Python", "Java", "HTML/CSS"],
-      category: "Mobile App",
-      github: "#",
-      live: "#",
-      featured: true
-    },
-    {
-      id: 3,
-      title: "Project Title 3",
-      description: "A data-driven application.",
-      image: "https://via.placeholder.com/600x400/673ab7/ffffff?text=Project+3",
-      technologies: ["Python", "JavaScript", "React"],
-      category: "Data Science",
-      github: "#",
-      live: "#",
-      featured: false
-    }
-  ];
-
-  const categories = ["All", "Web Development", "Mobile App", "Data Science"];
-
-  const filteredProjects = useMemo(() => 
-    filter === "All" ? projects : projects.filter(project => project.category === filter),
-    [filter]
-  );
+  const projects = PROJECTS;
 
   const featuredProjects = useMemo(() => 
-    projects.filter(project => project.featured),
+    projects.filter(project => project.featured).slice(0, 2),
     []
   );
-
 
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="py-20 gradient-bg">
+      <section className="py-20 gradient-bg -mt-16 pt-36">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 animate-fade-in">
             My Projects
@@ -123,26 +80,9 @@ export default function Projects() {
             <div className="w-20 h-1 bg-primary mx-auto"></div>
           </div>
 
-          {/* Filter Buttons */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setFilter(category)}
-                className={`px-6 py-2 rounded-full font-semibold transition-colors ${
-                  filter === category
-                    ? "bg-primary text-white"
-                    : "bg-white text-gray-800 hover:bg-primary/10 hover:text-primary-dark"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-
           {/* Projects Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project, index) => (
+            {projects.map((project, index) => (
               <div key={project.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                 <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
                 <div className="p-6">

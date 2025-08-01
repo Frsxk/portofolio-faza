@@ -1,6 +1,8 @@
 import type { Route } from "./+types/home";
 import Layout from "../components/Layout";
 import { Link } from "react-router";
+import { SKILLS } from "~/utils/constants";
+import { PROJECTS } from "~/utils/projectData";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -14,46 +16,14 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  const skills = [
-    { name: "Python", level: 85 },
-    { name: "Java", level: 80 },
-    { name: "JavaScript", level: 90 },
-    { name: "HTML/CSS", level: 95 },
-    { name: "React", level: 85 },
-    { name: "Node.js", level: 75 },
-  ];
+  const skills = SKILLS;
 
-  const featuredProjects = [
-    {
-      id: 1,
-      title: "Project Title 1",
-      description: "A brief description of your amazing project.",
-      image: "https://via.placeholder.com/400x250/e91e63/ffffff?text=Project+1",
-      github: "#",
-      live: "#"
-    },
-    {
-      id: 2,
-      title: "Project Title 2",
-      description: "Another exciting project description.",
-      image: "https://via.placeholder.com/400x250/c2185b/ffffff?text=Project+2",
-      github: "#",
-      live: "#"
-    },
-    {
-      id: 3,
-      title: "Project Title 3",
-      description: "Your third project showcase.",
-      image: "https://via.placeholder.com/400x250/673ab7/ffffff?text=Project+3",
-      github: "#",
-      live: "#"
-    }
-  ];
+  const featuredProjects = PROJECTS.filter((project) => project.featured);
 
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center gradient-bg">
+      <section className="min-h-screen flex items-center justify-center gradient-bg -mt-16 pt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in">
             <div className="w-32 h-32 mx-auto mb-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center animate-float">

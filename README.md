@@ -67,15 +67,6 @@ The color palette is defined in `app/app.css`:
    npm run build
    ```
 
-## 📝 TODO
-
-- [ ] Replace placeholder projects with actual projects
-- [ ] Update social media URLs
-- [ ] Add your email address for contact form
-- [ ] Replace placeholder images with actual screenshots
-- [ ] Update skills section with your technologies
-- [ ] Add your professional photo
-
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).

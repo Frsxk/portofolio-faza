@@ -1,6 +1,7 @@
 import type { Route } from "./+types/contact";
 import Layout from "../components/Layout";
 import { useState } from "react";
+import { SOCIAL_LINKS } from "~/utils/constants";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -50,7 +51,7 @@ export default function Contact() {
         message: formData.message.trim().replace(/[<>"'&]/g, '')
       };
       
-      const mailtoLink = `mailto:your.email@example.com?subject=${encodeURIComponent(sanitizedData.subject)}&body=${encodeURIComponent(`Name: ${sanitizedData.name}\nEmail: ${sanitizedData.email}\n\nMessage:\n${sanitizedData.message}`)}`;
+      const mailtoLink = `mailto:fazaalbanna0410@gmail.com?subject=${encodeURIComponent(sanitizedData.subject)}&body=${encodeURIComponent(`Name: ${sanitizedData.name}\nEmail: ${sanitizedData.email}\n\nMessage:\n${sanitizedData.message}`)}`;
       window.location.href = mailtoLink;
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -84,7 +85,7 @@ export default function Contact() {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="py-20 gradient-bg">
+      <section className="py-20 gradient-bg -mt-16 pt-36">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 animate-fade-in">
             Get In Touch
@@ -190,12 +191,7 @@ export default function Contact() {
 
               {/* Social Links */}
               <div className="space-y-4 mb-12">
-                {[
-                  { name: "LinkedIn", url: "https://linkedin.com/in/your-profile", color: "bg-blue-600" },
-                  { name: "GitHub", url: "https://github.com/your-username", color: "bg-gray-800" },
-                  { name: "Instagram", url: "https://instagram.com/your-username", color: "bg-pink-600" },
-                  { name: "Discord", url: "https://discord.com/users/your-discord-id", color: "bg-indigo-600" }
-                ].map((social, index) => (
+                {SOCIAL_LINKS.map((social, index) => (
                   <a
                     key={social.name}
                     href={social.url}
@@ -243,46 +239,6 @@ export default function Contact() {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-20 bg-neutral">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
-            <div className="w-20 h-1 bg-primary mx-auto"></div>
-          </div>
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div className="bg-white p-6 rounded-xl shadow-lg animate-fade-in">
-              <h3 className="text-lg font-bold text-gray-900 mb-3">What kind of projects do you work on?</h3>
-              <p className="text-gray-600">
-                I work on a variety of projects including web applications, mobile apps, and data analysis projects. 
-                I'm particularly interested in projects that involve modern technologies and solve real-world problems.
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-xl shadow-lg animate-fade-in" style={{ animationDelay: '0.1s' }}>
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Are you available for freelance work?</h3>
-              <p className="text-gray-600">
-                As a student, I'm selective about freelance opportunities, but I'm always open to discussing 
-                interesting projects that align with my skills and schedule. Feel free to reach out!
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-xl shadow-lg animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              <h3 className="text-lg font-bold text-gray-900 mb-3">How can we collaborate?</h3>
-              <p className="text-gray-600">
-                I'm open to various forms of collaboration including open-source contributions, study groups, 
-                hackathons, and project partnerships. Let's discuss what works best for both of us!
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-xl shadow-lg animate-fade-in" style={{ animationDelay: '0.3s' }}>
-              <h3 className="text-lg font-bold text-gray-900 mb-3">What's the best way to contact you?</h3>
-              <p className="text-gray-600">
-                For professional inquiries, LinkedIn or the contact form work best. For casual conversations 
-                about tech or collaboration ideas, feel free to reach out on any of the social platforms!
-              </p>
             </div>
           </div>
         </div>

@@ -1,53 +1,85 @@
-# Welcome to React Router!
+# Muhammad Faza Al-Banna - Portfolio Website
 
-A modern, production-ready template for building full-stack React applications using React Router.
+A modern, responsive portfolio website built with React Router and Tailwind CSS.
 
-## Features
+## 🚀 Features
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+- **Responsive Design**: Optimized for mobile, tablet, and desktop
+- **SEO Optimized**: Proper meta tags and semantic HTML
+- **Modern UI**: Custom color palette with smooth animations
+- **Background-Sensitive Navigation**: Adapts colors based on section background
+- **Contact Form**: Integrated contact form with social media links
+- **Project Showcase**: Filterable project gallery
 
-## Getting Started
+## 🛠️ Tech Stack
 
-### Installation
+- **Framework**: React Router v7
+- **Styling**: Tailwind CSS v4
+- **Language**: TypeScript
+- **Deployment**: Netlify
 
-Install the dependencies:
+## 📁 Project Structure
 
-```bash
-npm install
+```
+app/
+├── assets/           # Static assets (images, icons)
+├── components/       # Reusable React components
+├── routes/          # Page components
+├── utils/           # Helper functions and constants
+├── app.css          # Global styles and Tailwind config
+└── root.tsx         # Root layout component
 ```
 
-### Development
+## 🎨 Customization
 
-Start the development server with HMR:
+### Personal Information
+Update your details in `app/utils/constants.ts`:
+- Name, title, university, location
+- Social media links
+- Skills and proficiency levels
 
-```bash
-npm run dev
-```
+### Projects
+Add your projects in `app/utils/projectData.ts`:
+- Replace placeholder projects with your actual work
+- Update GitHub and live demo URLs
+- Add project screenshots
 
-Your application will be available at `http://localhost:3000`.
+### Colors
+The color palette is defined in `app/app.css`:
+- Primary: #e91e63 (Pink)
+- Primary Dark: #c2185b
+- Accent: #673ab7 (Purple)
 
-## Building for Production
+## 🚀 Getting Started
 
-Create a production build:
+1. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-```bash
-npm run build
-```
+2. **Start development server**:
+   ```bash
+   npm run dev
+   ```
 
-## Deployment
+3. **Build for production**:
+   ```bash
+   npm run build
+   ```
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/remix-run/react-router-templates&create_from_path=netlify)
+## 📝 TODO
 
-## Styling
+- [ ] Replace placeholder projects with actual projects
+- [ ] Update social media URLs
+- [ ] Add your email address for contact form
+- [ ] Replace placeholder images with actual screenshots
+- [ ] Update skills section with your technologies
+- [ ] Add your professional photo
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-Built with ❤️ using React Router.
+Built with ❤️ by Muhammad Faza Al-Banna

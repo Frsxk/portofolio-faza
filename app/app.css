@@ -3,13 +3,58 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  
+  --color-primary: #e91e63;
+  --color-primary-dark: #c2185b;
+  --color-primary-light: #f8bbd9;
+  --color-secondary: #ff5722;
+  --color-accent: #673ab7;
+  --color-neutral: #f8f9fa;
+  --color-dark: #212529;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-neutral text-dark;
+}
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
+.gradient-bg {
+  background: linear-gradient(135deg, theme(colors.primary.light) 0%, theme(colors.primary) 50%, theme(colors.secondary) 100%);
+}
+
+.glass-effect {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.6s ease-out;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
 }

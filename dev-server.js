@@ -18,7 +18,7 @@ app.use(async (req, res, next) => {
     return await createRequestListener(async (request) => {
       const source = await viteDevServer.ssrLoadModule("./server/app.ts");
       return await source.default(request, {
-        // TODO: Mock any required netlify functions context
+        
       });
     })(req, res);
   } catch (error) {

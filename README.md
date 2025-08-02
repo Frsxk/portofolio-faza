@@ -2,6 +2,10 @@
 
 A modern, responsive portfolio website built with React Router and Tailwind CSS.
 
+Proudly hosted using Netlify: https://faza-al-banna.netlify.app/
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/6b8d8763-2ac6-4da0-91e7-af635bc6c708/deploy-status)](https://app.netlify.com/projects/faza-al-banna/deploys)
+
 ## 🚀 Features
 
 - **Responsive Design**: Optimized for mobile, tablet, and desktop
@@ -9,7 +13,7 @@ A modern, responsive portfolio website built with React Router and Tailwind CSS.
 - **Modern UI**: Custom color palette with smooth animations
 - **Background-Sensitive Navigation**: Adapts colors based on section background
 - **Contact Form**: Integrated contact form with social media links
-- **Project Showcase**: Filterable project gallery
+- **Project Showcase**: Project previews with live demo
 
 ## 🛠️ Tech Stack
 
@@ -24,25 +28,11 @@ A modern, responsive portfolio website built with React Router and Tailwind CSS.
 app/
 ├── assets/           # Static assets (images, icons)
 ├── components/       # Reusable React components
-├── routes/          # Page components
-├── utils/           # Helper functions and constants
-├── app.css          # Global styles and Tailwind config
-└── root.tsx         # Root layout component
+├── routes/           # Page components
+├── utils/            # Helper functions and constants
+├── app.css           # Global styles and Tailwind config
+└── root.tsx          # Root layout component
 ```
-
-## 🎨 Customization
-
-### Personal Information
-Update your details in `app/utils/constants.ts`:
-- Name, title, university, location
-- Social media links
-- Skills and proficiency levels
-
-### Projects
-Add your projects in `app/utils/projectData.ts`:
-- Replace placeholder projects with your actual work
-- Update GitHub and live demo URLs
-- Add project screenshots
 
 ### Colors
 The color palette is defined in `app/app.css`:

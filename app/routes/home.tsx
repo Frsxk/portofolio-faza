@@ -27,7 +27,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in">
             <div className="w-32 h-32 mx-auto mb-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center animate-float">
-              <span className="text-4xl font-bold text-white">F</span>
+              <img src="app\assets\images\profile.jpeg" alt="profile" className="rounded-full object-cover transform hover:scale-110 transition-transform duration-300" />
             </div>
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
               Muhammad Faza Al-Banna
@@ -40,10 +40,14 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                to="/projects"
-                className="bg-white text-gray-900 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors shadow-lg"
+                to="https://docs.google.com/document/d/1acOrOqFPzBbbeMlfsPSdFH-n_0Dg4jNW/edit?usp=sharing&ouid=106393277389568316566&rtpof=true&sd=true"
+                className="bg-white text-gray-900 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors shadow-lg inline-flex items-center"
+                target="_blank"
               >
-                View My Work
+                View My CV
+                <svg className="w-5 h-5 text-gray-400 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
               </Link>
               <Link
                 to="/contact"
@@ -66,7 +70,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="animate-slide-in">
               <div className="w-80 h-80 mx-auto bg-gradient-to-br from-primary-light to-primary rounded-2xl flex items-center justify-center">
-                <span className="text-6xl font-bold text-white">FA</span>
+                <img src="app\assets\images\profile_professional.jpg" alt="profile" className="w-full h-full object-cover object-top rounded-2xl" />
               </div>
             </div>
             <div className="animate-fade-in">

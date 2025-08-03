@@ -1,5 +1,6 @@
 import type { Route } from "./+types/about";
 import Layout from "../components/Layout";
+import professionalImage from "~/assets/images/profile_professional.jpg";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -69,7 +70,7 @@ export default function About() {
             <div className="animate-slide-in">
               <div className="w-full max-w-md mx-auto">
                 <div className="aspect-square bg-gradient-to-br from-primary-light to-primary rounded-2xl flex items-center justify-center">
-                  <img src="app\assets\images\profile_professional.jpg" alt="profile" className="w-full h-full object-cover object-top rounded-2xl" />
+                  <img src={professionalImage} alt="profile" className="w-full h-full object-cover object-top rounded-2xl" />
                 </div>
               </div>
             </div>

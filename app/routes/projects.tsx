@@ -29,6 +29,7 @@ export default function Projects() {
     { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
     { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
     { name: "NPM", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg" },
+    { name: "Vite", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg" },
     { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
     { name: "Netlify", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/netlify/netlify-original.svg" }
   ];
@@ -71,13 +72,26 @@ export default function Projects() {
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-4">{project.title}</h3>
                   <p className="text-gray-600 mb-6 leading-relaxed">{project.description}</p>
-                  <div className="flex gap-4">
-                    <a href={project.github} className="flex-1 bg-gray-900 text-white px-6 py-3 rounded-lg text-center font-semibold hover:bg-gray-800 transition-colors">
-                      View Code
-                    </a>
-                    <a href={project.live} className="flex-1 bg-primary text-white px-6 py-3 rounded-lg text-center font-semibold hover:bg-primary-dark transition-colors">
-                      Live Demo
-                    </a>
+                  <div className={`flex gap-4 ${project.live === '#' ? 'justify-center' : ''}`}>
+                    {project.github === 'Project is close-sourced' ? (
+                      <div className="flex-1 relative group">
+                        <button className="w-full bg-gray-400 text-white px-6 py-3 rounded-lg text-center font-semibold cursor-not-allowed">
+                          View Code
+                        </button>
+                        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-gray-900 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                          Project is close-sourced
+                        </div>
+                      </div>
+                    ) : (
+                      <a href={project.github} className="flex-1 bg-gray-900 text-white px-6 py-3 rounded-lg text-center font-semibold hover:bg-gray-800 transition-colors">
+                        View Code
+                      </a>
+                    )}
+                    {project.live !== '#' && (
+                      <a href={project.live} className="flex-1 bg-primary text-white px-6 py-3 rounded-lg text-center font-semibold hover:bg-primary-dark transition-colors">
+                        Live Demo
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -97,9 +111,9 @@ export default function Projects() {
           {/* Projects Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
-              <div key={project.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+              <div key={project.id} className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-xl transition-shadow animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                 <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
-                <div className="p-6">
+                <div className="p-6 flex-1 flex flex-col">
                   <div className="flex flex-wrap gap-2 mb-3">
                     {project.technologies.slice(0, 2).map((tech) => (
                       <span key={tech} className="px-2 py-1 bg-primary/15 text-primary-dark rounded text-xs font-medium">
@@ -113,16 +127,29 @@ export default function Projects() {
                     )}
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-3">{project.title}</h3>
-                  <p className="text-gray-600 mb-4 text-sm leading-relaxed">
-                    {project.description.substring(0, 120)}...
+                  <p className="text-gray-600 mb-4 text-sm leading-relaxed flex-1">
+                    {project.description}
                   </p>
-                  <div className="flex gap-3">
-                    <a href={project.github} className="flex-1 bg-gray-900 text-white px-4 py-2 rounded-lg text-center text-sm font-semibold hover:bg-gray-800 transition-colors">
-                      GitHub
-                    </a>
-                    <a href={project.live} className="flex-1 bg-primary text-white px-4 py-2 rounded-lg text-center text-sm font-semibold hover:bg-primary-dark transition-colors">
-                      Demo
-                    </a>
+                  <div className={`flex gap-3 ${project.live === '#' ? 'justify-center' : ''}`}>
+                    {project.github === 'Project is close-sourced' ? (
+                      <div className="flex-1 relative group">
+                        <button className="w-full bg-gray-400 text-white px-4 py-2 rounded-lg text-center text-sm font-semibold cursor-not-allowed">
+                          GitHub
+                        </button>
+                        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-gray-900 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                          Project is close-sourced
+                        </div>
+                      </div>
+                    ) : (
+                      <a href={project.github} className="flex-1 bg-gray-900 text-white px-4 py-2 rounded-lg text-center text-sm font-semibold hover:bg-gray-800 transition-colors">
+                        GitHub
+                      </a>
+                    )}
+                    {project.live !== '#' && (
+                      <a href={project.live} className="flex-1 bg-primary text-white px-4 py-2 rounded-lg text-center text-sm font-semibold hover:bg-primary-dark transition-colors">
+                        Demo
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -145,7 +172,7 @@ export default function Projects() {
             {technologies.map((tech, index) => (
               <div key={tech.name} className="bg-white p-7 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group animate-fade-in flex flex-col items-center justify-center relative" style={{ animationDelay: `${index * 0.1}s` }}>
                 <img src={tech.icon} alt={tech.name} className="w-12 h-12 mb-2" />
-                <span className="absolute bottom-1 left-1/2 transform -translate-x-1/2 bg-gradient-to-br from-primary to-primary-dark text-white px-2 py-1 rounded text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                <span className="absolute bottom-1 left-1/2 transform -translate-x-1/2 bg-dark text-white px-2 py-1 rounded text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                   {tech.name}
                 </span>
               </div>

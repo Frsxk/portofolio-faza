@@ -1,6 +1,5 @@
 import type { Route } from "./+types/contact";
 import Layout from "../components/Layout";
-import { useState } from "react";
 import { SOCIAL_LINKS } from "~/utils/constants";
 
 export function meta({}: Route.MetaArgs) {
@@ -12,52 +11,6 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Basic validation
-    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      alert('Please fill in all required fields.');
-      return;
-    }
-    
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      alert('Please enter a valid email address.');
-      return;
-    }
-    
-    try {
-      // Sanitize and encode form data
-      const sanitizedData = {
-        name: formData.name.trim().replace(/[<>"'&]/g, ''),
-        email: formData.email.trim(),
-        subject: formData.subject.trim().replace(/[<>"'&]/g, ''),
-        message: formData.message.trim().replace(/[<>"'&]/g, '')
-      };
-      
-      const mailtoLink = `mailto:fazaalbanna0410@gmail.com?subject=${encodeURIComponent(sanitizedData.subject)}&body=${encodeURIComponent(`Name: ${sanitizedData.name}\nEmail: ${sanitizedData.email}\n\nMessage:\n${sanitizedData.message}`)}`;
-      window.location.href = mailtoLink;
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      alert('There was an error submitting the form. Please try again.');
-    }
-  };
 
   const socialIcons = {
     LinkedIn: (
@@ -106,7 +59,7 @@ export default function Contact() {
               <p className="text-gray-600 mb-8">
                 Have a project in mind or want to collaborate? Fill out the form below and I'll get back to you as soon as possible.
               </p>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form action="https://formsubmit.co/fazaalbanna0410@gmail.com" method="POST" className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
@@ -116,8 +69,6 @@ export default function Contact() {
                       type="text"
                       id="name"
                       name="name"
-                      value={formData.name}
-                      onChange={handleChange}
                       required
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-dark focus:border-transparent transition-colors"
                       placeholder="Your full name"
@@ -131,8 +82,6 @@ export default function Contact() {
                       type="email"
                       id="email"
                       name="email"
-                      value={formData.email}
-                      onChange={handleChange}
                       required
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-dark focus:border-transparent transition-colors"
                       placeholder="your.email@example.com"
@@ -146,9 +95,7 @@ export default function Contact() {
                   <input
                     type="text"
                     id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
+                    name="_subject"
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-dark focus:border-transparent transition-colors"
                     placeholder="What's this about?"
@@ -161,14 +108,15 @@ export default function Contact() {
                   <textarea
                     id="message"
                     name="message"
-                    value={formData.message}
-                    onChange={handleChange}
                     required
                     rows={6}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-dark focus:border-transparent transition-colors resize-none"
                     placeholder="Tell me about your project or what you'd like to discuss..."
                   ></textarea>
                 </div>
+                <input type="hidden" name="_next" value="https://faza-al-banna.netlify.app/contact" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="text" name="_honey" className="hidden" />
                 <button
                   type="submit"
                   className="w-full bg-primary text-white px-8 py-4 rounded-lg font-semibold hover:bg-primary-dark transition-colors flex items-center justify-center"

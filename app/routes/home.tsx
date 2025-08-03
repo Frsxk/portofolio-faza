@@ -3,6 +3,8 @@ import Layout from "../components/Layout";
 import { Link } from "react-router";
 import { SKILLS } from "~/utils/constants";
 import { PROJECTS } from "~/utils/projectData";
+import profileImage from "~/assets/images/profile.jpeg";
+import professionalImage from "~/assets/images/profile_professional.jpg";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -27,7 +29,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in">
             <div className="w-32 h-32 mx-auto mb-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center animate-float">
-              <img src="app\assets\images\profile.jpeg" alt="profile" className="rounded-full object-cover transform hover:scale-110 transition-transform duration-300" />
+              <img src={profileImage} alt="profile" className="rounded-full object-cover transform hover:scale-110 transition-transform duration-300" />
             </div>
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
               Muhammad Faza Al-Banna
@@ -41,12 +43,12 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="https://docs.google.com/document/d/1acOrOqFPzBbbeMlfsPSdFH-n_0Dg4jNW/edit?usp=sharing&ouid=106393277389568316566&rtpof=true&sd=true"
-                className="bg-white text-gray-900 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors shadow-lg inline-flex items-center"
+                className="bg-white text-gray-900 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors shadow-lg flex items-center justify-center"
                 target="_blank"
               >
                 View My CV
                 <svg className="w-5 h-5 text-gray-400 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </Link>
               <Link
@@ -70,7 +72,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="animate-slide-in">
               <div className="w-80 h-80 mx-auto bg-gradient-to-br from-primary-light to-primary rounded-2xl flex items-center justify-center">
-                <img src="app\assets\images\profile_professional.jpg" alt="profile" className="w-full h-full object-cover object-top rounded-2xl" />
+                <img src={professionalImage} alt="profile" className="w-full h-full object-cover object-top rounded-2xl" />
               </div>
             </div>
             <div className="animate-fade-in">
@@ -140,13 +142,26 @@ export default function Home() {
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-900 mb-3">{project.title}</h3>
                   <p className="text-gray-600 mb-4">{project.description}</p>
-                  <div className="flex gap-3">
-                    <a href={project.github} className="flex-1 bg-gray-900 text-white px-4 py-2 rounded-lg text-center hover:bg-gray-800 transition-colors">
-                      GitHub
-                    </a>
-                    <a href={project.live} className="flex-1 bg-primary text-white px-4 py-2 rounded-lg text-center hover:bg-primary-dark transition-colors">
-                      Live Demo
-                    </a>
+                  <div className={`flex gap-3 ${project.live === '#' ? 'justify-center' : ''}`}>
+                    {project.github === 'Project is close-sourced' ? (
+                      <div className="flex-1 relative group">
+                        <button className="w-full bg-gray-400 text-white px-4 py-2 rounded-lg text-center cursor-not-allowed">
+                          GitHub
+                        </button>
+                        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-gray-900 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                          Project is close-sourced
+                        </div>
+                      </div>
+                    ) : (
+                      <a href={project.github} className="flex-1 bg-gray-900 text-white px-4 py-2 rounded-lg text-center hover:bg-gray-800 transition-colors">
+                        GitHub
+                      </a>
+                    )}
+                    {project.live !== '#' && (
+                      <a href={project.live} className="flex-1 bg-primary text-white px-4 py-2 rounded-lg text-center hover:bg-primary-dark transition-colors">
+                        Live Demo
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

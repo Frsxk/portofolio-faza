@@ -59,7 +59,7 @@ export default function Contact() {
               <p className="text-gray-600 mb-8">
                 Have a project in mind or want to collaborate? Fill out the form below and I'll get back to you as soon as possible.
               </p>
-              <form action="https://formsubmit.co/fazaalbanna0410@gmail.com" method="POST" className="space-y-6">
+              <form action="https://formsubmit.co/2c7a81099a9584b7dfd2ef87615d7a2d" method="POST" className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">

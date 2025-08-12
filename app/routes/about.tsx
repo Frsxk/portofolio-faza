@@ -70,7 +70,7 @@ export default function About() {
             <div className="animate-slide-in">
               <div className="w-full max-w-md mx-auto">
                 <div className="aspect-square bg-gradient-to-br from-primary-light to-primary rounded-2xl flex items-center justify-center">
-                  <img src={professionalImage} alt="profile" className="w-full h-full object-cover object-top rounded-2xl" />
+                  <img src={professionalImage} alt="profile" className="w-full h-full object-cover object-top rounded-2xl" loading="lazy" />
                 </div>
               </div>
             </div>

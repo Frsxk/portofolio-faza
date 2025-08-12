@@ -1,11 +1,3 @@
-// Personal Information
-export const PERSONAL_INFO = {
-  name: "Muhammad Faza Al-Banna",
-  title: "Information Systems Student",
-  university: "University of Indonesia",
-  location: "Depok, Indonesia",
-  email: "fazaalbanna0410@gmail.com",
-};
 
 // Skills Data
 export const SKILLS = [

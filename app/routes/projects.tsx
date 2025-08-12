@@ -61,7 +61,7 @@ export default function Projects() {
           <div className="grid lg:grid-cols-2 gap-12">
             {featuredProjects.map((project, index) => (
               <div key={project.id} className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow animate-fade-in" style={{ animationDelay: `${index * 0.2}s` }}>
-                <img src={project.image} alt={project.title} className="w-full h-64 object-cover" />
+                <img src={project.image} alt={project.title} className="w-full h-64 object-cover" loading="lazy" />
                 <div className="p-8">
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.technologies.map((tech) => (
@@ -112,7 +112,7 @@ export default function Projects() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <div key={project.id} className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-xl transition-shadow animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
+                <img src={project.image} alt={project.title} className="w-full h-48 object-cover" loading="lazy" />
                 <div className="p-6 flex-1 flex flex-col">
                   <div className="flex flex-wrap gap-2 mb-3">
                     {project.technologies.slice(0, 2).map((tech) => (
@@ -171,7 +171,7 @@ export default function Projects() {
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
             {technologies.map((tech, index) => (
               <div key={tech.name} className="bg-white p-7 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group animate-fade-in flex flex-col items-center justify-center relative" style={{ animationDelay: `${index * 0.1}s` }}>
-                <img src={tech.icon} alt={tech.name} className="w-12 h-12 mb-2" />
+                <img src={tech.icon} alt={tech.name} className="w-12 h-12 mb-2" loading="lazy" />
                 <span className="absolute bottom-1 left-1/2 transform -translate-x-1/2 bg-dark text-white px-2 py-1 rounded text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                   {tech.name}
                 </span>

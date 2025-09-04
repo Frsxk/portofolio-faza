@@ -83,12 +83,12 @@ export default function Projects() {
                         </div>
                       </div>
                     ) : (
-                      <a href={project.github} className="flex-1 bg-gray-900 text-white px-6 py-3 rounded-lg text-center font-semibold hover:bg-gray-800 transition-colors">
+                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex-1 bg-gray-900 text-white px-6 py-3 rounded-lg text-center font-semibold hover:bg-gray-800 transition-colors">
                         View Code
                       </a>
                     )}
                     {project.live !== '#' && (
-                      <a href={project.live} className="flex-1 bg-primary text-white px-6 py-3 rounded-lg text-center font-semibold hover:bg-primary-dark transition-colors">
+                      <a href={project.live} target="_blank" rel="noopener noreferrer" className="flex-1 bg-primary text-white px-6 py-3 rounded-lg text-center font-semibold hover:bg-primary-dark transition-colors">
                         Live Demo
                       </a>
                     )}
@@ -141,12 +141,12 @@ export default function Projects() {
                         </div>
                       </div>
                     ) : (
-                      <a href={project.github} className="flex-1 bg-gray-900 text-white px-4 py-2 rounded-lg text-center text-sm font-semibold hover:bg-gray-800 transition-colors">
+                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex-1 bg-gray-900 text-white px-4 py-2 rounded-lg text-center text-sm font-semibold hover:bg-gray-800 transition-colors">
                         GitHub
                       </a>
                     )}
                     {project.live !== '#' && (
-                      <a href={project.live} className="flex-1 bg-primary text-white px-4 py-2 rounded-lg text-center text-sm font-semibold hover:bg-primary-dark transition-colors">
+                      <a href={project.live} target="_blank" rel="noopener noreferrer" className="flex-1 bg-primary text-white px-4 py-2 rounded-lg text-center text-sm font-semibold hover:bg-primary-dark transition-colors">
                         Demo
                       </a>
                     )}

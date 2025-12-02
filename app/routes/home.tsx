@@ -14,6 +14,7 @@ export function meta({}: Route.MetaArgs) {
     { property: "og:title", content: "Muhammad Faza Al-Banna - Portfolio" },
     { property: "og:description", content: "Passionate undergraduate student exploring technology and programming" },
     { property: "og:type", content: "website" },
+    { name: "google-site-verification", content: "fb04pTfLicBMtftwfW8eGM8PpFedl67-JKh2c-c5mNE"},
   ];
 }
 

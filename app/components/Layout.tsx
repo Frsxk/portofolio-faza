@@ -131,7 +131,7 @@ export default function Layout({ children }: LayoutProps) {
       <footer className="bg-dark text-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-gray-400">
-            © 2025 Muhammad Faza Al-Banna. Built with 💖 using React Router & Tailwind CSS.
+            © 2026 Muhammad Faza Al-Banna. Built with 💖 using React Router & Tailwind CSS.
           </p>
         </div>
       </footer>

@@ -11,5 +11,13 @@ export default defineConfig(({ isSsrBuild }) => ({
         }
       : undefined,
   },
+  // GSAP and Lenis ship as CJS; tell Vite to bundle them for SSR so their
+  // named exports (e.g. `ScrollTrigger`) are interop-converted properly.
+  ssr: {
+    noExternal: ["gsap", "lenis"],
+  },
+  optimizeDeps: {
+    include: ["gsap", "gsap/ScrollTrigger", "lenis"],
+  },
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
 }));

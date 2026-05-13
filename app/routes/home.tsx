@@ -1,212 +1,291 @@
-import type { Route } from "./+types/home";
-import Layout from "../components/Layout";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router";
-import { SKILLS } from "~/utils/constants";
-import { PROJECTS } from "~/utils/projectData";
-import profileImage from "~/assets/images/profile.jpeg";
-import professionalImage from "~/assets/images/profile_professional.jpg";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Layout from "~/components/Layout";
+import AnimatedHeading from "~/components/AnimatedHeading";
+import Reveal from "~/components/Reveal";
+import Marquee from "~/components/Marquee";
+import MagneticButton from "~/components/MagneticButton";
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
-    { title: "Muhammad Faza Al-Banna - Information Systems Student & Developer" },
-    { name: "description", content: "Passionate undergraduate student at University of Indonesia majoring in Information Systems. Exploring endless possibilities of technology with skills in Python, Java, JavaScript, React, and more." },
-    { name: "keywords", content: "Muhammad Faza Al-Banna, Information Systems, University of Indonesia, Developer, Python, Java, JavaScript, React, Portfolio" },
-    { property: "og:title", content: "Muhammad Faza Al-Banna - Portfolio" },
-    { property: "og:description", content: "Passionate undergraduate student exploring technology and programming" },
-    { property: "og:type", content: "website" },
-    { name: "google-site-verification", content: "fb04pTfLicBMtftwfW8eGM8PpFedl67-JKh2c-c5mNE"},
+    { title: "Faza Al-Banna | Creative Developer" },
+    { name: "description", content: "Portfolio of Muhammad Faza Al-Banna — Creative Developer & CS Student" },
   ];
 }
 
-export default function Home() {
-  const skills = SKILLS;
+const MARQUEE_WORDS = [
+  "React", "TypeScript", "Python", "Java", "Node.js", "GSAP",
+  "Phaser3", "Discord.js", "TailwindCSS", "Vite", "Creative Dev",
+];
 
-  const featuredProjects = PROJECTS.filter((project) => project.featured);
+export default function Home() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const scrollIndicatorRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      // Subtitle fade in after heading
+      if (subtitleRef.current) {
+        gsap.fromTo(
+          subtitleRef.current,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 1, delay: 1.8, ease: "power3.out" }
+        );
+      }
+
+      // CTA buttons stagger
+      if (ctaRef.current) {
+        gsap.fromTo(
+          ctaRef.current.children,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.8, stagger: 0.15, delay: 2.2, ease: "power3.out" }
+        );
+      }
+
+      // Scroll indicator bounce
+      if (scrollIndicatorRef.current) {
+        gsap.fromTo(
+          scrollIndicatorRef.current,
+          { opacity: 0 },
+          { opacity: 1, delay: 3, duration: 0.6 }
+        );
+        gsap.to(scrollIndicatorRef.current, {
+          y: 12,
+          duration: 1.2,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+          delay: 3.2,
+        });
+      }
+
+      // Parallax hero on scroll
+      if (heroRef.current) {
+        gsap.to(heroRef.current, {
+          yPercent: 30,
+          opacity: 0.3,
+          ease: "none",
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      }
+    });
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center gradient-bg -mt-16 pt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="animate-fade-in">
-            <div className="w-32 h-32 mx-auto mb-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center animate-float">
-              <img src={profileImage} alt="profile" className="rounded-full object-cover transform hover:scale-110 transition-transform duration-300" loading="lazy" />
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              Muhammad Faza Al-Banna
-            </h1>
-            <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto">
-              Passionate Information Systems Student at University of Indonesia
-            </p>
-            <p className="text-lg text-white/80 mb-12 max-w-2xl mx-auto">
-              Exploring endless possibilities of technology with a keen interest in programming and computer science
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="https://docs.google.com/document/d/1acOrOqFPzBbbeMlfsPSdFH-n_0Dg4jNW/edit?usp=sharing&ouid=106393277389568316566&rtpof=true&sd=true"
-                className="bg-white text-gray-900 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors shadow-lg flex items-center justify-center"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View My CV
-                <svg className="w-5 h-5 text-gray-400 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </a>
-              <Link
-                to="/contact"
-                className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-gray-900 transition-colors"
-              >
-                Get In Touch
-              </Link>
-            </div>
+      {/* ═══════ HERO ═══════ */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div ref={heroRef} className="relative z-10 text-center px-6 max-w-6xl mx-auto">
+          {/* Eyebrow */}
+          <Reveal delay={0.8} y={20}>
+            <p className="eyebrow mb-6">Creative Developer &amp; CS Student</p>
+          </Reveal>
+
+          {/* Main heading */}
+          <AnimatedHeading as="h1" className="display-hero text-paper mb-6" immediate delay={1.2}>
+            Faza Al-Banna
+          </AnimatedHeading>
+
+          {/* Subtitle */}
+          <p ref={subtitleRef} className="text-muted text-lg md:text-xl max-w-2xl mx-auto opacity-0 mb-10">
+            I build beautiful, interactive digital experiences — from web apps and games to bots and beyond.
+          </p>
+
+          {/* CTA */}
+          <div ref={ctaRef} className="flex flex-wrap items-center justify-center gap-4">
+            <MagneticButton as="a" href="/projects" className="px-8 py-3 rounded-full bg-primary text-ink font-mono text-sm tracking-wider uppercase hover:bg-primary-light transition-colors">
+              View Projects
+            </MagneticButton>
+            <MagneticButton as="a" href="/contact" className="px-8 py-3 rounded-full border border-line text-paper font-mono text-sm tracking-wider uppercase hover:border-primary hover:text-primary transition-colors">
+              Get in Touch
+            </MagneticButton>
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div ref={scrollIndicatorRef} className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-0">
+          <div className="w-5 h-9 rounded-full border-2 border-muted flex items-start justify-center pt-1.5">
+            <div className="w-1 h-2.5 rounded-full bg-primary" />
           </div>
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">About Me</h2>
-            <div className="w-20 h-1 bg-primary mx-auto"></div>
-          </div>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="animate-slide-in">
-              <div className="w-80 h-80 mx-auto bg-gradient-to-br from-primary-light to-primary rounded-2xl flex items-center justify-center">
-                <img src={professionalImage} alt="profile" className="w-full h-full object-cover object-top rounded-2xl" loading="lazy" />
-              </div>
-            </div>
-            <div className="animate-fade-in">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Hello! I'm Faza</h3>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                I'm a passionate undergraduate student at University of Indonesia majoring in Information Systems. 
-                With a keen interest in programming and computer science, I'm eager to explore endless possibilities of technology.
+      {/* ═══════ MARQUEE SECTION ═══════ */}
+      <section className="py-16 border-t border-b border-line overflow-hidden">
+        <Marquee speed={50} direction="left" className="text-paper/10">
+          {MARQUEE_WORDS.map((word) => (
+            <span key={word} className="display-lg text-stroke whitespace-nowrap">
+              {word}
+            </span>
+          ))}
+        </Marquee>
+      </section>
+
+      {/* ═══════ INTRO / ABOUT TEASER ═══════ */}
+      <section className="py-32 px-6 md:px-10">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+          <div>
+            <Reveal>
+              <p className="eyebrow mb-4">Who am I?</p>
+            </Reveal>
+            <AnimatedHeading as="h2" className="display-xl mb-6">
+              A Passionate Builder
+            </AnimatedHeading>
+            <Reveal delay={0.2}>
+              <p className="text-muted leading-relaxed mb-4">
+                I'm a Computer Science student at Binus University with a passion for crafting polished digital products. 
+                From anime blog sites to adventure RPG games, Discord bots to full-stack web apps — I love turning ideas into reality.
               </p>
-              <p className="text-gray-600 mb-8 leading-relaxed">
-                I'm always seeking new opportunities to learn and grow, both academically and professionally. 
-                My goal is to leverage my technical skills to contribute meaningfully to the digital world.
+            </Reveal>
+            <Reveal delay={0.35}>
+              <p className="text-muted leading-relaxed mb-8">
+                My toolkit spans Python, Java, TypeScript, React, Node.js, and creative frameworks like Phaser3 and GSAP.
               </p>
+            </Reveal>
+            <Reveal delay={0.5}>
               <Link
                 to="/about"
-                className="inline-flex items-center text-primary font-semibold hover:text-primary-dark transition-colors"
+                className="inline-flex items-center gap-2 font-mono text-sm text-primary hover:text-primary-light transition-colors group"
               >
-                Learn More About Me
-                <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
+                Learn more about me
+                <span className="inline-block transition-transform group-hover:translate-x-1">&rarr;</span>
               </Link>
+            </Reveal>
+          </div>
+
+          {/* Decorative stat cards */}
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { number: "5+", label: "Projects Built" },
+              { number: "8+", label: "Technologies" },
+              { number: "3+", label: "Years Coding" },
+              { number: "∞", label: "Curiosity" },
+            ].map((stat, i) => (
+              <Reveal key={stat.label} delay={i * 0.12} y={30}>
+                <div className="card-surface p-6 text-center rounded-xl">
+                  <p className="display-lg text-gradient mb-1">{stat.number}</p>
+                  <p className="font-mono text-[0.65rem] text-muted tracking-wider uppercase">{stat.label}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════ FEATURED PROJECTS TEASER ═══════ */}
+      <section className="py-32 px-6 md:px-10 border-t border-line">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-end justify-between mb-16">
+            <div>
+              <Reveal>
+                <p className="eyebrow mb-3">Selected Work</p>
+              </Reveal>
+              <AnimatedHeading as="h2" className="display-xl">
+                Featured Projects
+              </AnimatedHeading>
             </div>
+            <Reveal x={20} y={0}>
+              <Link
+                to="/projects"
+                className="hidden md:inline-flex items-center gap-2 font-mono text-sm text-primary hover:text-primary-light transition-colors group"
+              >
+                View all
+                <span className="inline-block transition-transform group-hover:translate-x-1">&rarr;</span>
+              </Link>
+            </Reveal>
           </div>
-        </div>
-      </section>
 
-      {/* Skills Section */}
-      <section id="skills" className="py-20 bg-neutral">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Skills & Technologies</h2>
-            <div className="w-20 h-1 bg-primary mx-auto"></div>
-          </div>
-          <div className="grid md:grid-cols-2 gap-8">
-            {skills.map((skill, index) => (
-              <div key={skill.name} className="animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="flex justify-between mb-2">
-                  <span className="font-semibold text-gray-900">{skill.name}</span>
-                  <span className="text-gray-700">{skill.level}%</span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-3">
-                  <div
-                    className="bg-gradient-to-r from-primary to-primary-dark h-3 rounded-full transition-all duration-1000 ease-out"
-                    style={{ width: `${skill.level}%` }}
-                  ></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Preview */}
-      <section id="projects" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Featured Projects</h2>
-            <div className="w-20 h-1 bg-primary mx-auto mb-6"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Here are some of my recent projects that showcase my skills and passion for development.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            {featuredProjects.map((project, index) => (
-              <div key={project.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow animate-fade-in" style={{ animationDelay: `${index * 0.2}s` }}>
-                <img src={project.image} alt={project.title} className="w-full h-48 object-cover" loading="lazy" />
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">{project.title}</h3>
-                  <p className="text-gray-600 mb-4">{project.description}</p>
-                  <div className={`flex gap-3 ${project.live === '#' ? 'justify-center' : ''}`}>
-                    {project.github === 'Project is close-sourced' ? (
-                      <div className="flex-1 relative group">
-                        <button className="w-full bg-gray-400 text-white px-4 py-2 rounded-lg text-center cursor-not-allowed">
-                          GitHub
-                        </button>
-                        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-gray-900 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
-                          Project is close-sourced
-                        </div>
-                      </div>
-                    ) : (
-                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex-1 bg-gray-900 text-white px-4 py-2 rounded-lg text-center hover:bg-gray-800 transition-colors flex items-center justify-center gap-2">
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                        </svg>
-                        GitHub
-                      </a>
-                    )}
-                    {project.live !== '#' && (
-                      <a href={project.live} target="_blank" rel="noopener noreferrer" className="flex-1 bg-primary text-white px-4 py-2 rounded-lg text-center hover:bg-primary-dark transition-colors flex items-center justify-center gap-2">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                        Live Demo
-                      </a>
-                    )}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                title: "NimeNime Hub",
+                desc: "Anime & Manga blog built with pure HTML/CSS/JS",
+                techs: ["HTML", "CSS", "JavaScript"],
+                url: "https://nimenime.netlify.app",
+              },
+              {
+                title: "Knight of The Night",
+                desc: "Web-based Adventure RPG game with Phaser3",
+                techs: ["Phaser3", "Node.js"],
+                url: "https://knight-of-the-night.netlify.app/",
+              },
+              {
+                title: "Smol Maiden",
+                desc: "Multi-purpose Discord bot for channel organization",
+                techs: ["Discord.js", "Node.js"],
+                url: "#",
+              },
+            ].map((project, i) => (
+              <Reveal key={project.title} delay={i * 0.15} y={40}>
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block card-surface p-6 rounded-xl group h-full"
+                >
+                  <div className="flex items-center gap-2 mb-4">
+                    {project.techs.map((t) => (
+                      <span key={t} className="px-2 py-0.5 rounded-full bg-white/5 font-mono text-[0.6rem] text-muted">
+                        {t}
+                      </span>
+                    ))}
                   </div>
-                </div>
-              </div>
+                  <h3 className="font-display text-xl mb-2 group-hover:text-primary transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-muted text-sm leading-relaxed">{project.desc}</p>
+                  <div className="mt-4 flex items-center gap-1 text-primary text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity">
+                    Explore <span>&rarr;</span>
+                  </div>
+                </a>
+              </Reveal>
             ))}
           </div>
-          <div className="text-center">
+
+          <Reveal className="mt-10 text-center md:hidden">
             <Link
               to="/projects"
-              className="inline-flex items-center bg-primary text-white px-8 py-3 rounded-full font-semibold hover:bg-primary-dark transition-colors shadow-lg"
+              className="inline-flex items-center gap-2 font-mono text-sm text-primary"
             >
-              View All Projects
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
+              View all projects &rarr;
             </Link>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Contact CTA */}
-      <section className="py-20 gradient-bg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+      {/* ═══════ CTA SECTION ═══════ */}
+      <section className="py-32 px-6 text-center border-t border-line">
+        <div className="max-w-3xl mx-auto">
+          <AnimatedHeading as="h2" className="display-xl mb-6">
             Let's Work Together
-          </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            I'm always open to discussing new opportunities and interesting projects.
-          </p>
-          <Link
-            to="/contact"
-            className="inline-flex items-center bg-white text-gray-900 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors shadow-lg"
-          >
-            Get In Touch
-            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </Link>
+          </AnimatedHeading>
+          <Reveal delay={0.2}>
+            <p className="text-muted text-lg mb-10 max-w-xl mx-auto">
+              Have a project in mind or just want to say hello? I'm always open to new conversations and collaborations.
+            </p>
+          </Reveal>
+          <Reveal delay={0.4}>
+            <MagneticButton
+              as="a"
+              href="/contact"
+              className="px-10 py-4 rounded-full bg-primary text-ink font-mono text-sm tracking-wider uppercase hover:bg-primary-light transition-colors"
+            >
+              Say Hello
+            </MagneticButton>
+          </Reveal>
         </div>
       </section>
     </Layout>

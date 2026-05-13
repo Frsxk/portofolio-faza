@@ -1,142 +1,201 @@
-import type { Route } from "./+types/about";
-import Layout from "../components/Layout";
-import professionalImage from "~/assets/images/profile_professional.jpg";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Layout from "~/components/Layout";
+import AnimatedHeading from "~/components/AnimatedHeading";
+import Reveal from "~/components/Reveal";
+import Marquee from "~/components/Marquee";
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
-    { title: "About - Muhammad Faza Al-Banna" },
-    { name: "description", content: "Learn more about Muhammad Faza Al-Banna, Information Systems student at University of Indonesia with passion for technology and programming." },
-    { name: "keywords", content: "About Faza, Information Systems, University of Indonesia, Student, Developer, Programming" },
+    { title: "About | Faza Al-Banna" },
+    { name: "description", content: "Learn more about Muhammad Faza Al-Banna" },
   ];
 }
 
-export default function About() {
-  const experiences = [
-    {
-      title: "Information Systems Student",
-      company: "University of Indonesia",
-      period: "2024 - Present",
-      description: "Currently pursuing a Bachelor's degree in Information Systems, focusing on software development, database management, and system analysis."
-    },
-    {
-      title: "Front-End Web Development Intern",
-      company: "BEM Fasilkom UI",
-      period: "Sep 2024 - Nov 2024",
-      description: "Joined SBF (Sekolah BEM Fasilkom) PTI as a Front-End Web Development, creating a fully responsive movie-themed website using React."
-    },
-    {
-      title: "ElevAIte with Dicoding",
-      company: "Dicoding, hosted by Microsoft",
-      period: "Jan 2025 - June 2025",
-      description: "Participated in learning plans from Microsoft Learn with the syllabus provided by Dicoding, diving throughly in the field of Artificial Intelligence and Data Engineering."
-    },
-    {
-      title: "Google Cloud Arcade Fasilitator",
-      company: "Dicoding, hosted by Google Cloud",
-      period: "Jul 2025 - Present",
-      description: "Joined a coding scholarship from Google Cloud with gamification concept, improving digital talents in Cloud Computing, Machine Learning, and Artificial Intelligence."
-    }
-  ];
+const SKILLS = [
+  { name: "Python", level: 100 },
+  { name: "Java", level: 95 },
+  { name: "JavaScript/TypeScript", level: 90 },
+  { name: "HTML/CSS", level: 95 },
+  { name: "React", level: 85 },
+  { name: "Node.js", level: 85 },
+  { name: "Discord.js", level: 70 },
+  { name: "Phaser3", level: 70 },
+];
 
-  const interests = [
-    "Web Development",
-    "Software Engineering",
-    "Game Development",
-    "Cloud Computing",
-    "Artificial Intelligence",
-    "Machine Learning",
-    "Open Source",
-    "Problem Solving"
-  ];
+const EXPERIENCES = [
+  {
+    period: "2024 — Present",
+    title: "Computer Science Student",
+    org: "Binus University",
+    description: "Pursuing Bachelor's in Computer Science with a focus on software engineering and creative development.",
+  },
+  {
+    period: "2023 — 2024",
+    title: "Web Developer Program",
+    org: "Timedoor Academy",
+    description: "Completed comprehensive web development program. Built NimeNime Hub as final project.",
+  },
+  {
+    period: "2023 — 2024",
+    title: "Game Development Program",
+    org: "Timedoor Academy",
+    description: "Learned game development with Phaser3. Built Knight of The Night as final project.",
+  },
+];
+
+export default function About() {
+  const skillBarsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      // Animate skill bars on scroll
+      if (skillBarsRef.current) {
+        const fills = skillBarsRef.current.querySelectorAll<HTMLElement>(".skill-bar-fill");
+        fills.forEach((fill) => {
+          const level = parseFloat(fill.dataset.level ?? "0") / 100;
+          gsap.to(fill, {
+            scaleX: level,
+            duration: 1.4,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: fill,
+              start: "top 90%",
+              once: true,
+            },
+          });
+        });
+      }
+    });
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="py-20 gradient-bg -mt-16 pt-36">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 animate-fade-in">
-            About Me
-          </h1>
-          <p className="text-xl text-white/90 max-w-3xl mx-auto animate-fade-in">
-            Get to know more about my journey, experiences, and what drives my passion for technology
-          </p>
+      {/* ═══════ HERO ═══════ */}
+      <section className="min-h-[60vh] flex items-center px-6 md:px-10">
+        <div className="max-w-5xl mx-auto">
+          <Reveal>
+            <p className="eyebrow mb-4">About Me</p>
+          </Reveal>
+          <AnimatedHeading as="h1" className="display-hero mb-8">
+            Hello, I'm Faza
+          </AnimatedHeading>
+          <Reveal delay={0.3}>
+            <p className="text-muted text-lg md:text-xl max-w-3xl leading-relaxed">
+              A Computer Science student at Binus University who loves building things that live on the internet.
+              I'm drawn to the intersection of design, code, and interactivity — whether it's a web application, a game, or a Discord bot.
+            </p>
+          </Reveal>
         </div>
       </section>
 
-      {/* Detailed About */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="animate-slide-in">
-              <div className="w-full max-w-md mx-auto">
-                <div className="aspect-square bg-gradient-to-br from-primary-light to-primary rounded-2xl flex items-center justify-center">
-                  <img src={professionalImage} alt="profile" className="w-full h-full object-cover object-top rounded-2xl" loading="lazy" />
-                </div>
-              </div>
-            </div>
-            <div className="animate-fade-in">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">My Story</h2>
-              <div className="space-y-4 text-gray-600 leading-relaxed">
-                <p>
-                  I'm Muhammad Faza Al-Banna, a passionate undergraduate student at the University of Indonesia, 
-                  majoring in Information Systems. My journey in technology began with curiosity about how 
-                  digital systems work and has evolved into a deep passion for creating meaningful solutions.
-                </p>
-                <p>
-                  With a keen interest in programming and computer science, I'm constantly exploring new 
-                  technologies and methodologies. I believe that technology has the power to solve real-world 
-                  problems and improve people's lives, which drives my commitment to continuous learning.
-                </p>
-                <p>
-                  I'm always seeking new opportunities to learn and grow, both academically and professionally. 
-                  My goal is to leverage my technical skills to contribute meaningfully to the digital world 
-                  and make a positive impact through innovative solutions.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+      {/* ═══════ MARQUEE ═══════ */}
+      <section className="py-10 border-t border-b border-line">
+        <Marquee speed={40} direction="right">
+          {["Creative", "Curious", "Self-taught", "Builder", "Gamer", "Problem Solver", "Open Source"].map((w) => (
+            <span key={w} className="font-display text-3xl md:text-5xl text-stroke text-paper/10 whitespace-nowrap">
+              {w}
+            </span>
+          ))}
+        </Marquee>
       </section>
 
-      {/* Experience Section */}
-      <section className="py-20 bg-neutral">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Experience</h2>
-            <div className="w-20 h-1 bg-primary mx-auto"></div>
+      {/* ═══════ BIO SECTION ═══════ */}
+      <section className="py-32 px-6 md:px-10">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-20">
+          <div>
+            <Reveal>
+              <p className="eyebrow mb-4">Background</p>
+            </Reveal>
+            <AnimatedHeading as="h2" className="display-lg mb-6">
+              My Journey
+            </AnimatedHeading>
+            <Reveal delay={0.15}>
+              <p className="text-muted leading-relaxed mb-4">
+                I started coding out of pure curiosity — tinkering with Discord bots, automating games, and building small websites.
+                That curiosity evolved into a passion for crafting polished user experiences.
+              </p>
+            </Reveal>
+            <Reveal delay={0.25}>
+              <p className="text-muted leading-relaxed mb-4">
+                Through Timedoor Academy's programs, I formalized my skills in web and game development.
+                Now at Binus University, I'm deepening my understanding of computer science while continuing to build creative projects.
+              </p>
+            </Reveal>
+            <Reveal delay={0.35}>
+              <p className="text-muted leading-relaxed">
+                When I'm not coding, you'll find me exploring anime, playing games, or diving into new tech stacks.
+              </p>
+            </Reveal>
           </div>
-          <div className="space-y-8">
-            {experiences.map((exp, index) => (
-              <div key={index} className="bg-white rounded-xl p-8 shadow-lg animate-fade-in" style={{ animationDelay: `${index * 0.2}s` }}>
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-1">{exp.title}</h3>
-                    <p className="text-primary-dark font-semibold">{exp.company}</p>
+
+          {/* Experience timeline */}
+          <div>
+            <Reveal>
+              <p className="eyebrow mb-4">Experience</p>
+            </Reveal>
+            <div className="space-y-8 mt-2">
+              {EXPERIENCES.map((exp, i) => (
+                <Reveal key={exp.title} delay={i * 0.15} x={20} y={0}>
+                  <div className="relative pl-6 border-l border-line hover:border-primary transition-colors duration-500">
+                    <p className="font-mono text-[0.65rem] text-muted tracking-wider uppercase mb-1">{exp.period}</p>
+                    <h3 className="font-display text-lg text-paper mb-0.5">{exp.title}</h3>
+                    <p className="text-primary text-sm mb-2">{exp.org}</p>
+                    <p className="text-muted text-sm leading-relaxed">{exp.description}</p>
                   </div>
-                  <span className="text-gray-500 font-medium mt-2 md:mt-0">{exp.period}</span>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════ SKILLS ═══════ */}
+      <section className="py-32 px-6 md:px-10 border-t border-line">
+        <div className="max-w-5xl mx-auto">
+          <Reveal>
+            <p className="eyebrow mb-4">Technical Skills</p>
+          </Reveal>
+          <AnimatedHeading as="h2" className="display-xl mb-16">
+            What I Work With
+          </AnimatedHeading>
+
+          <div ref={skillBarsRef} className="grid md:grid-cols-2 gap-x-16 gap-y-8">
+            {SKILLS.map((skill, i) => (
+              <Reveal key={skill.name} delay={i * 0.08} y={20}>
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-mono text-sm text-paper">{skill.name}</span>
+                    <span className="font-mono text-xs text-muted">{skill.level}%</span>
+                  </div>
+                  <div className="skill-bar-bg">
+                    <div className="skill-bar-fill" data-level={skill.level} />
+                  </div>
                 </div>
-                <p className="text-gray-600 leading-relaxed">{exp.description}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Interests Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Interests & Passions</h2>
-            <div className="w-20 h-1 bg-primary mx-auto mb-6"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Areas that fascinate me and drive my continuous learning journey
-            </p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {interests.map((interest, index) => (
-              <div key={index} className="bg-gradient-to-br from-primary to-primary-dark text-white p-6 rounded-xl text-center font-semibold animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                {interest}
-              </div>
+      {/* ═══════ INTERESTS ═══════ */}
+      <section className="py-32 px-6 md:px-10 border-t border-line">
+        <div className="max-w-5xl mx-auto text-center">
+          <AnimatedHeading as="h2" className="display-lg mb-10">
+            Beyond Code
+          </AnimatedHeading>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            {["Anime & Manga", "Game Development", "Open Source", "UI/UX Design", "Creative Coding", "Music", "Competitive Programming"].map((interest, i) => (
+              <Reveal key={interest} delay={i * 0.08} y={15}>
+                <span className="px-5 py-2.5 rounded-full border border-line text-sm text-muted hover:border-primary hover:text-primary transition-colors duration-300 cursor-default">
+                  {interest}
+                </span>
+              </Reveal>
             ))}
           </div>
         </div>

@@ -19,20 +19,26 @@ export const links: Route.LinksFunction = () => [
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;700&display=swap",
+  },
+  {
+    rel: "stylesheet",
+    href: "https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap",
   },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="bg-ink">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#060608" />
+        <title>Faza Al-Banna | Portfolio</title>
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="bg-ink text-paper antialiased">
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -45,7 +51,6 @@ export default function App() {
   return <Outlet />;
 }
 
-// Error Handling
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let message = "Oops!";
   let details = "An unexpected error occurred.";
@@ -62,19 +67,18 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
     stack = error.stack;
   }
 
-  if (error && !(isRouteErrorResponse(error) && error.status === 404)) {
-    console.error('Application Error:', error);
-  }
-
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
+    <main className="min-h-screen flex items-center justify-center px-6">
+      <div className="max-w-xl text-center">
+        <p className="eyebrow mb-4">Something went wrong</p>
+        <h1 className="display-hero text-gradient mb-6">{message}</h1>
+        <p className="text-muted text-lg">{details}</p>
+        {stack && (
+          <pre className="mt-8 text-left text-xs font-mono text-muted bg-ink-2 p-4 rounded-lg overflow-x-auto border border-line">
+            <code>{stack}</code>
+          </pre>
+        )}
+      </div>
     </main>
   );
 }

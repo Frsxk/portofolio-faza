@@ -1,193 +1,239 @@
-import type { Route } from "./+types/projects";
-import Layout from "../components/Layout";
-import { useMemo } from "react";
-import { PROJECTS } from "~/utils/projectData";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Layout from "~/components/Layout";
+import AnimatedHeading from "~/components/AnimatedHeading";
+import Reveal from "~/components/Reveal";
+import MagneticButton from "~/components/MagneticButton";
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
-    { title: "Projects - Muhammad Faza Al-Banna" },
-    { name: "description", content: "Explore my portfolio of projects showcasing skills in Python, Java, JavaScript, React, and more." },
-    { name: "keywords", content: "Projects, Portfolio, Python, Java, JavaScript, React, Web Development" },
+    { title: "Projects | Faza Al-Banna" },
+    { name: "description", content: "Selected projects by Muhammad Faza Al-Banna" },
   ];
 }
 
+const PROJECTS = [
+  {
+    id: 1,
+    title: "NimeNime Hub",
+    description: "A blog-type website focusing on Anime and Manga updates. Built using pure HTML/CSS/JavaScript as a Final Project from Timedoor Academy Web Developer Program.",
+    image: "https://i.ibb.co.com/PszbgmD1/image-2025-08-12-171025313.png",
+    technologies: ["HTML", "CSS", "JavaScript"],
+    github: "https://github.com/Frsxk/weeb-site",
+    live: "https://nimenime.netlify.app",
+    featured: true,
+  },
+  {
+    id: 2,
+    title: "Knight of The Night",
+    description: "A web-based Adventure RPG game made with Phaser3 framework. Final Project from Timedoor Academy Game Development Program.",
+    image: "https://i.ibb.co.com/DHkZwLXX/image-2025-08-12-171329030.png",
+    technologies: ["Phaser3", "Node.js"],
+    github: "https://github.com/Frsxk/knight-of-the-night",
+    live: "https://knight-of-the-night.netlify.app/",
+    featured: true,
+  },
+  {
+    id: 3,
+    title: "Smol Maiden",
+    description: "A multipurpose Discord application for channel organization. Built with Discord.js v13, self-taught and independently developed.",
+    image: "https://i.ibb.co.com/5WBcfZHP/image-2025-08-12-171515683.png",
+    technologies: ["Discord.js", "Node.js"],
+    github: "",
+    live: "",
+    featured: true,
+  },
+  {
+    id: 4,
+    title: "Epic Selfbot",
+    description: "A Discord.js automation tool for competitive gaming. An easy-to-configure bot designed for Epic RPG Discord bot.",
+    image: "https://i.ibb.co.com/7JCfXJVz/image-2025-08-12-171451444.png",
+    technologies: ["Discord.js", "Node.js"],
+    github: "https://github.com/Frsxk/Epic-selfbot",
+    live: "",
+    featured: false,
+  },
+  {
+    id: 5,
+    title: "Portfolio Website",
+    description: "This very website — a showcase of my work built with React Router, TypeScript, TailwindCSS, and GSAP animations.",
+    image: "https://i.ibb.co.com/Qj6stJPf/image-2025-08-12-171543687.png",
+    technologies: ["React", "TypeScript", "TailwindCSS", "GSAP"],
+    github: "https://github.com/Frsxk/portofolio-faza",
+    live: "https://faza-al-banna.netlify.app",
+    featured: false,
+  },
+];
+
 export default function Projects() {
-  const projects = PROJECTS;
+  const horizontalRef = useRef<HTMLDivElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
 
-  const featuredProjects = useMemo(() => 
-    projects.filter(project => project.featured).slice(0, 2),
-    []
-  );
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
 
-  const technologies = [
-    { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-    { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
-    { name: "HTML", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
-    { name: "CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
-    { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
-    { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
-    { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-    { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-    { name: "NPM", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg" },
-    { name: "Vite", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg" },
-    { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
-    { name: "Netlify", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/netlify/netlify-original.svg" }
-  ];
+    const ctx = gsap.context(() => {
+      // Horizontal scroll for featured projects
+      const section = horizontalRef.current;
+      const wrap = wrapRef.current;
+      if (!section || !wrap) return;
+
+      const totalScroll = wrap.scrollWidth - window.innerWidth;
+
+      gsap.to(wrap, {
+        x: -totalScroll,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: () => `+=${totalScroll}`,
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
+
+  const featured = PROJECTS.filter((p) => p.featured);
+  const other = PROJECTS.filter((p) => !p.featured);
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="py-20 gradient-bg -mt-16 pt-36">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 animate-fade-in">
-            My Projects
-          </h1>
-          <p className="text-xl text-white/90 max-w-3xl mx-auto animate-fade-in">
-            A showcase of my work, demonstrating skills in various technologies and problem-solving approaches
-          </p>
+      {/* ═══════ HERO ═══════ */}
+      <section className="min-h-[50vh] flex items-center px-6 md:px-10">
+        <div className="max-w-5xl mx-auto">
+          <Reveal>
+            <p className="eyebrow mb-4">My Work</p>
+          </Reveal>
+          <AnimatedHeading as="h1" className="display-hero mb-6">
+            Projects
+          </AnimatedHeading>
+          <Reveal delay={0.3}>
+            <p className="text-muted text-lg max-w-2xl leading-relaxed">
+              A collection of things I've built — from websites and games to Discord bots and automation tools.
+            </p>
+          </Reveal>
         </div>
       </section>
 
-      {/* Featured Projects */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Featured Projects</h2>
-            <div className="w-20 h-1 bg-primary mx-auto mb-6"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Highlighting some of my most significant and impactful projects
-            </p>
-          </div>
-          <div className="grid lg:grid-cols-2 gap-12">
-            {featuredProjects.map((project, index) => (
-              <div key={project.id} className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow animate-fade-in" style={{ animationDelay: `${index * 0.2}s` }}>
-                <img src={project.image} alt={project.title} className="w-full h-64 object-cover" loading="lazy" />
-                <div className="p-8">
+      {/* ═══════ HORIZONTAL SCROLL — FEATURED ═══════ */}
+      <section ref={horizontalRef} className="relative overflow-hidden border-t border-line">
+        <div className="absolute top-8 left-6 md:left-10 z-10">
+          <p className="eyebrow">Featured — Scroll horizontally</p>
+        </div>
+        <div ref={wrapRef} className="horizontal-scroll-wrap min-h-screen items-center pl-6 md:pl-10 pt-20">
+          {featured.map((project, i) => (
+            <div
+              key={project.id}
+              className="flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[45vw] mr-8 md:mr-12"
+            >
+              <div className="card-surface rounded-2xl overflow-hidden h-full group">
+                {/* Image */}
+                <div className="relative aspect-video overflow-hidden bg-ink-2">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent" />
+                </div>
+
+                {/* Content */}
+                <div className="p-6 md:p-8">
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.technologies.map((tech) => (
-                      <span key={tech} className="px-3 py-1 bg-primary/15 text-primary-dark rounded-full text-sm font-medium">
+                      <span key={tech} className="px-2.5 py-1 rounded-full bg-white/5 font-mono text-[0.6rem] text-muted tracking-wider uppercase">
                         {tech}
                       </span>
                     ))}
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{project.title}</h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">{project.description}</p>
-                  <div className={`flex gap-4 ${project.live === '#' ? 'justify-center' : ''}`}>
-                    {project.github === 'Project is close-sourced' ? (
-                      <div className="flex-1 relative group">
-                        <button className="w-full bg-gray-400 text-white px-6 py-3 rounded-lg text-center font-semibold cursor-not-allowed">
-                          View Code
-                        </button>
-                        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-gray-900 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
-                          Project is close-sourced
-                        </div>
-                      </div>
-                    ) : (
-                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex-1 bg-gray-900 text-white px-6 py-3 rounded-lg text-center font-semibold hover:bg-gray-800 transition-colors flex items-center justify-center gap-2">
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                        </svg>
-                        View Code
+                  <h3 className="font-display text-2xl md:text-3xl mb-3 group-hover:text-primary transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-muted text-sm leading-relaxed mb-6">{project.description}</p>
+                  <div className="flex items-center gap-4">
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-mono text-xs text-primary hover:text-primary-light transition-colors"
+                      >
+                        Live Demo &rarr;
                       </a>
                     )}
-                    {project.live !== '#' && (
-                      <a href={project.live} target="_blank" rel="noopener noreferrer" className="flex-1 bg-primary text-white px-6 py-3 rounded-lg text-center font-semibold hover:bg-primary-dark transition-colors flex items-center justify-center gap-2">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                        Live Demo
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* All Projects */}
-      <section className="py-20 bg-neutral">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">All Projects</h2>
-            <div className="w-20 h-1 bg-primary mx-auto"></div>
-          </div>
-
-          {/* Projects Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <div key={project.id} className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-xl transition-shadow animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                <img src={project.image} alt={project.title} className="w-full h-48 object-cover" loading="lazy" />
-                <div className="p-6 flex-1 flex flex-col">
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {project.technologies.slice(0, 2).map((tech) => (
-                      <span key={tech} className="px-2 py-1 bg-primary/15 text-primary-dark rounded text-xs font-medium">
-                        {tech}
-                      </span>
-                    ))}
-                    {project.technologies.length > 2 && (
-                      <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs font-medium">
-                        +{project.technologies.length - 2}
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">{project.title}</h3>
-                  <p className="text-gray-600 mb-4 text-sm leading-relaxed flex-1">
-                    {project.description}
-                  </p>
-                  <div className={`flex gap-3 ${project.live === '#' ? 'justify-center' : ''}`}>
-                    {project.github === 'Project is close-sourced' ? (
-                      <div className="flex-1 relative group">
-                        <button className="w-full bg-gray-400 text-white px-4 py-2 rounded-lg text-center text-sm font-semibold cursor-not-allowed">
-                          GitHub
-                        </button>
-                        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-gray-900 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
-                          Project is close-sourced
-                        </div>
-                      </div>
-                    ) : (
-                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex-1 bg-gray-900 text-white px-4 py-2 rounded-lg text-center text-sm font-semibold hover:bg-gray-800 transition-colors flex items-center justify-center gap-2">
-                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                        </svg>
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-mono text-xs text-muted hover:text-paper transition-colors"
+                      >
                         GitHub
                       </a>
                     )}
-                    {project.live !== '#' && (
-                      <a href={project.live} target="_blank" rel="noopener noreferrer" className="flex-1 bg-primary text-white px-4 py-2 rounded-lg text-center text-sm font-semibold hover:bg-primary-dark transition-colors flex items-center justify-center gap-2">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                        Demo
-                      </a>
-                    )}
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+
+          {/* End spacer for scroll */}
+          <div className="flex-shrink-0 w-[10vw]" />
         </div>
       </section>
 
-      {/* Skills Used */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Technologies I Use</h2>
-            <div className="w-20 h-1 bg-primary mx-auto mb-6"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              The tools and technologies that power my projects
-            </p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {technologies.map((tech, index) => (
-              <div key={tech.name} className="bg-white p-7 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group animate-fade-in flex flex-col items-center justify-center relative" style={{ animationDelay: `${index * 0.1}s` }}>
-                <img src={tech.icon} alt={tech.name} className="w-12 h-12 mb-2" loading="lazy" />
-                <span className="absolute bottom-1 left-1/2 transform -translate-x-1/2 bg-dark text-white px-2 py-1 rounded text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  {tech.name}
-                </span>
-              </div>
+      {/* ═══════ OTHER PROJECTS ═══════ */}
+      <section className="py-32 px-6 md:px-10 border-t border-line">
+        <div className="max-w-5xl mx-auto">
+          <AnimatedHeading as="h2" className="display-lg mb-12">
+            Other Projects
+          </AnimatedHeading>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {other.map((project, i) => (
+              <Reveal key={project.id} delay={i * 0.15} y={30}>
+                <div className="card-surface rounded-xl overflow-hidden group">
+                  <div className="relative aspect-video overflow-hidden bg-ink-2">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {project.technologies.map((tech) => (
+                        <span key={tech} className="px-2 py-0.5 rounded-full bg-white/5 font-mono text-[0.6rem] text-muted">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <h3 className="font-display text-xl mb-2 group-hover:text-primary transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-muted text-sm leading-relaxed mb-4">{project.description}</p>
+                    <div className="flex items-center gap-4">
+                      {project.live && (
+                        <a href={project.live} target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-primary hover:text-primary-light transition-colors">
+                          Live Demo &rarr;
+                        </a>
+                      )}
+                      {project.github && (
+                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-muted hover:text-paper transition-colors">
+                          GitHub
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>

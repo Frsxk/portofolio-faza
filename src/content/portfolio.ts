@@ -239,7 +239,7 @@ const studies = [
     },
     schematic: {
       src: PROJECT_05_SCREENSHOT_SRC,
-      alt: "Screenshot of the rebuilt portfolio home page: the hero with the owner's headline and the Material arch sculpture.",
+      alt: "Screenshot of the rebuilt portfolio home page: the hero with the owner's headline, professional portrait in the arch frame, real project photos, and brand-coloured social links.",
       caption: "The rebuilt site. One page, hero first.",
       aspectWidth: 800,
       aspectHeight: 434,

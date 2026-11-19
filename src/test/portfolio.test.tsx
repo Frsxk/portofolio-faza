@@ -231,6 +231,21 @@ describe("portfolio contact", () => {
     expect(form.getByRole("button", { name: "Send message" })).toBeEnabled()
   })
 
+  it("shows Elsewhere buttons with brand icons and links", () => {
+    renderPortfolio(<ContactSection content={portfolioContent.contact} />)
+    for (const social of portfolioContent.contact.socials) {
+      // M3E Button keeps button semantics even when rendered as an anchor.
+      const link = screen.getByRole("button", { name: social.name })
+      expect(link).toBeVisible()
+      expect(link).toHaveAttribute("href", social.url)
+      expect(link).toHaveAttribute("target", "_blank")
+      expect(link).toHaveAttribute("rel", "noopener noreferrer")
+      const icon = link.querySelector("svg")
+      expect(icon).not.toBeNull()
+      expect(icon).toHaveAttribute("aria-hidden", "true")
+    }
+  })
+
   it("reports a rejected clipboard write and permits a successful retry", async () => {
     const user = userEvent.setup()
     const writeText = vi.spyOn(navigator.clipboard, "writeText")

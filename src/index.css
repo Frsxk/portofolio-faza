@@ -14,6 +14,22 @@
   --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
+/*
+ * Brand colors for the Elsewhere buttons in the contact section.
+ * These are the social networks' own brand colors, not Tidal Ink roles,
+ * so they do not use --md-sys-color-* tokens. White text on each passes
+ * WCAG AA 4.5:1 (antislop-human contrast checker): LinkedIn 5.69,
+ * GitHub 17.89, Instagram 5.11, Discord 4.61. Instagram uses the darker
+ * #C13584, not #E1306C (4.34, fails). The same colors apply in light
+ * and dark mode, because the button background is the brand color itself.
+ */
+:root {
+  --brand-linkedin: #0a66c2;
+  --brand-github: #181717;
+  --brand-instagram: #c13584;
+  --brand-discord: #5865f2;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;

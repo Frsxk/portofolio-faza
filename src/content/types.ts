@@ -8,6 +8,8 @@ export interface NavItem {
   href: "#work" | "#atelier" | "#contact"
 }
 
+export type SocialBrand = "linkedin" | "github" | "instagram" | "discord"
+
 export interface TelemetrySpec {
   label: string
   value: string
@@ -142,7 +144,7 @@ export interface PortfolioContent {
     workingNotes: string
     draftNotice: string
     subjectPresets: readonly string[]
-    socials: readonly { name: string; url: string }[]
+    socials: readonly { name: string; url: string; brand: SocialBrand }[]
   }
   footer: {
     colophon: string

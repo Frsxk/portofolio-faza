@@ -400,10 +400,10 @@ export const portfolioContent: PortfolioContent = {
       "Discuss this portfolio",
     ],
     socials: [
-      { name: "LinkedIn", url: "https://www.linkedin.com/in/faza-al-banna" },
-      { name: "GitHub", url: "https://github.com/Frsxk" },
-      { name: "Instagram", url: "https://instagram.com/faza_0810" },
-      { name: "Discord", url: "https://discord.com/users/543313602942337035" },
+      { name: "LinkedIn", url: "https://www.linkedin.com/in/faza-al-banna", brand: "linkedin" },
+      { name: "GitHub", url: "https://github.com/Frsxk", brand: "github" },
+      { name: "Instagram", url: "https://instagram.com/faza_0810", brand: "instagram" },
+      { name: "Discord", url: "https://discord.com/users/543313602942337035", brand: "discord" },
     ],
   },
   footer: {

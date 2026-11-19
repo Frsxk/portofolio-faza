@@ -4,14 +4,28 @@ import { useReducedMotion } from "motion/react"
 import { Button } from "@/components/m3e/button"
 import { Field, FieldDescription, FieldError, FieldLabel } from "@/components/m3e/field"
 import { Input } from "@/components/m3e/input"
+import { BrandIcon } from "@/components/sections/brand-icons"
 import { Shape } from "@/components/m3e/shape"
 import { toast } from "@/components/m3e/sonner"
 import { Textarea } from "@/components/m3e/textarea"
-import type { PortfolioContent } from "@/content/types"
+import type { PortfolioContent, SocialBrand } from "@/content/types"
 
 // FormSubmit endpoint already used by the old portfolio. It delivers to
 // fazaalbanna0410@gmail.com. No test submission has been sent from here.
 const FORM_SUBMIT_URL = "https://formsubmit.co/2c7a81099a9584b7dfd2ef87615d7a2d"
+
+/*
+ * Elsewhere button colors. These are the social networks' own brand
+ * colors (see the --brand-* tokens in src/index.css), not Tidal Ink
+ * roles. White text on each passes WCAG AA 4.5:1. The M3E Button keeps
+ * its state-layer hover, ripple, and focus ring; only the fill changes.
+ */
+const BRAND_BUTTON_CLASS: Record<SocialBrand, string> = {
+  linkedin: "bg-[var(--brand-linkedin)] text-white",
+  github: "bg-[var(--brand-github)] text-white",
+  instagram: "bg-[var(--brand-instagram)] text-white",
+  discord: "bg-[var(--brand-discord)] text-white",
+}
 
 type Draft = { name: string; email: string; subject: string; message: string }
 type DraftErrors = Partial<Record<keyof Draft, string>>
@@ -154,11 +168,12 @@ export function ContactSection({ content }: { content: PortfolioContent["contact
                   <Button
                     variant="tonal"
                     size="md"
-                    className="h-auto min-h-12 px-4 py-3"
+                    className={`h-auto min-h-12 px-4 py-3 ${BRAND_BUTTON_CLASS[social.brand]}`}
                     render={<a href={social.url} target="_blank" rel="noopener noreferrer" />}
                     nativeButton={false}
                     disableRipple={reducedMotion}
                   >
+                    <BrandIcon brand={social.brand} className="size-5" />
                     {social.name}
                   </Button>
                 </li>

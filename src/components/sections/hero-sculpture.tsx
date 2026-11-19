@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { motion } from "motion/react"
 
+import { HERO_PORTRAIT_SRC } from "@/assets/hero-portrait"
 import { Icon } from "@/components/m3e/icon"
 import { Shape } from "@/components/m3e/shape"
 import { Toggle } from "@/components/m3e/toggle"
@@ -52,27 +53,19 @@ export function HeroSculpture({
         >
           <Shape
             name={morphed ? "4-sided-cookie" : "arch"}
-            aria-hidden="true"
             className="pointer-events-none size-60 max-w-full bg-primary-container motion-reduce:transition-none min-[600px]:size-72 min-[840px]:size-80"
             style={{ height: "auto" }}
-          />
-          <svg
-            viewBox="0 0 320 320"
-            fill="none"
-            aria-hidden="true"
-            focusable="false"
-            className="pointer-events-none absolute inset-0 size-full overflow-visible stroke-on-primary-container"
-            strokeWidth="1.25"
-            strokeLinecap="square"
           >
-            <path d="M62 244V148a98 98 0 0 1 196 0v96M86 244V148a74 74 0 0 1 148 0v96" />
-            <path d="M62 214h196M110 244v-70a50 50 0 0 1 100 0v70M160 60v20m0 150v20M52 148h20m176 0h20" />
-            <path d="M150 148h20m-10-10v20M80 104h12m-6-6v12M228 104h12m-6-6v12M106 208v12m54-12v12m54-12v12" />
-            <circle cx="62" cy="244" r="3" />
-            <circle cx="258" cy="244" r="3" />
-            <circle cx="160" cy="50" r="3" />
-            <path d="M40 264h240m-240-5v10m240-10v10M284 80v164m-5-164h10m-10 164h10" />
-          </svg>
+            <img
+              src={HERO_PORTRAIT_SRC}
+              alt="Portrait of Muhammad Faza Al-Banna"
+              width={400}
+              height={600}
+              loading="eager"
+              decoding="async"
+              className="object-top"
+            />
+          </Shape>
         </motion.div>
 
         <motion.div

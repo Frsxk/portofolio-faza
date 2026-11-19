@@ -6,6 +6,7 @@ import { afterEach, describe, expect, it, vi } from "vitest"
 import { DesignProviders } from "@/components/layout/design-providers"
 import { ModeSwitcher } from "@/components/layout/mode-switcher"
 import { ContactSection } from "@/components/sections/contact-section"
+import { HeroSection } from "@/components/sections/hero-section"
 import { WorkSection } from "@/components/sections/work-section"
 import { getFeaturedStudy, getSupportingStudies, portfolioContent } from "@/content/portfolio"
 
@@ -73,6 +74,20 @@ describe("portfolio real content", () => {
       expect(within(article).getByAltText(/screenshot/i)).toBeVisible()
     }
     expect(screen.queryByText("[Schematic Illustration]", { exact: true })).not.toBeInTheDocument()
+  })
+})
+
+describe("portfolio hero", () => {
+  it("shows the owner's portrait inside the hero arch", () => {
+    renderPortfolio(
+      <HeroSection
+        identity={portfolioContent.identity}
+        sampleDisclosure={portfolioContent.meta.sampleDisclosure}
+      />
+    )
+    const portrait = screen.getByAltText("Portrait of Muhammad Faza Al-Banna")
+    expect(portrait).toBeVisible()
+    expect(portrait).toHaveAttribute("src", expect.stringContaining("data:image/jpeg;base64,"))
   })
 })
 

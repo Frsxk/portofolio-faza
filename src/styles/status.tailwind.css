@@ -1,0 +1,15 @@
+/* Optional Tailwind v4 aliases for project-defined statuses, not Google M3 roles. */
+@theme inline {
+  --color-status-success: var(--portfolio-color-success);
+  --color-on-status-success: var(--portfolio-color-on-success);
+  --color-status-success-container: var(--portfolio-color-success-container);
+  --color-on-status-success-container: var(--portfolio-color-on-success-container);
+  --color-status-warning: var(--portfolio-color-warning);
+  --color-on-status-warning: var(--portfolio-color-on-warning);
+  --color-status-warning-container: var(--portfolio-color-warning-container);
+  --color-on-status-warning-container: var(--portfolio-color-on-warning-container);
+  --color-status-info: var(--portfolio-color-info);
+  --color-on-status-info: var(--portfolio-color-on-info);
+  --color-status-info-container: var(--portfolio-color-info-container);
+  --color-on-status-info-container: var(--portfolio-color-on-info-container);
+}

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { motion } from "motion/react"
 
 import { HERO_PORTRAIT_SRC } from "@/assets/hero-portrait"
-import { Icon } from "@/components/m3e/icon"
+import { HERO_PORTRAIT_CAMPUS_SRC } from "@/assets/hero-portrait-campus"
 import { Shape } from "@/components/m3e/shape"
 import { Toggle } from "@/components/m3e/toggle"
 import type { PortfolioContent } from "@/content/types"
@@ -12,16 +12,13 @@ const restingTransform = { x: 0, y: 0, scale: 1, rotate: 0 }
 
 export function HeroSculpture({
   telemetry,
-  morphed,
-  onToggleMorph,
   prefersReducedMotion,
 }: {
   telemetry: PortfolioContent["identity"]["heroTelemetry"]
-  morphed: boolean
-  onToggleMorph: () => void
   prefersReducedMotion: boolean
 }) {
   const [mounted, setMounted] = useState(false)
+  const [campus, setCampus] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -52,13 +49,17 @@ export function HeroSculpture({
           className="pointer-events-none absolute end-4 top-6 aspect-square w-60 max-w-[calc(100%-1rem)] min-[600px]:w-72 min-[840px]:w-80"
         >
           <Shape
-            name={morphed ? "4-sided-cookie" : "arch"}
+            name="arch"
             className="pointer-events-none size-60 max-w-full bg-primary-container motion-reduce:transition-none min-[600px]:size-72 min-[840px]:size-80"
             style={{ height: "auto" }}
           >
             <img
-              src={HERO_PORTRAIT_SRC}
-              alt="Portrait of Muhammad Faza Al-Banna"
+              src={campus ? HERO_PORTRAIT_CAMPUS_SRC : HERO_PORTRAIT_SRC}
+              alt={
+                campus
+                  ? "Portrait of Muhammad Faza Al-Banna in a yellow Universitas Indonesia jacket on campus"
+                  : "Portrait of Muhammad Faza Al-Banna in a formal suit"
+              }
               width={400}
               height={600}
               loading="eager"
@@ -75,7 +76,7 @@ export function HeroSculpture({
           className="pointer-events-none absolute start-0 bottom-6"
         >
           <Shape
-            name={morphed ? "12-sided-cookie" : "sunny"}
+            name="sunny"
             aria-hidden="true"
             className="pointer-events-none size-20 bg-tertiary-container motion-reduce:transition-none min-[600px]:size-24"
           />
@@ -102,13 +103,12 @@ export function HeroSculpture({
         <Toggle
           variant="tonal"
           size="md"
-          pressed={morphed}
-          onPressedChange={() => onToggleMorph()}
-          aria-label="Morph hero Material geometry"
+          pressed={campus}
+          onPressedChange={() => setCampus((current) => !current)}
+          aria-label={campus ? "Switch to professional photo" : "Switch to campus photo"}
           className="mt-4 h-14 w-full min-w-0 px-3 text-label-large"
         >
-          <Icon name="architecture" fill="auto" size={20} />
-          <span>{morphed ? "Geometry: Cookie" : "Geometry: Arch"}</span>
+          <span>{campus ? "Switch to professional photo" : "Switch to campus photo"}</span>
         </Toggle>
       </motion.div>
     </div>

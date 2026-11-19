@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { useReducedMotion } from "motion/react"
 
 import { Button } from "@/components/m3e/button"
@@ -14,34 +13,12 @@ export function HeroSection({
   sampleDisclosure: string
 }) {
   const prefersReducedMotion = useReducedMotion() ?? true
-  const [hoveredOrFocused, setHoveredOrFocused] = useState({ hovered: false, focused: false })
-  const [pinnedMorph, setPinnedMorph] = useState<boolean | null>(null)
-  const attentionMorph = hoveredOrFocused.hovered || hoveredOrFocused.focused
-  const morphed = pinnedMorph ?? attentionMorph
 
   return (
     <section
       id="top"
       aria-labelledby="hero-heading"
       className="relative py-12 min-[600px]:py-16 min-[840px]:py-24"
-      onPointerEnter={(event) => {
-        if (event.pointerType === "mouse" && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-          setHoveredOrFocused((current) => ({ ...current, hovered: true }))
-        }
-      }}
-      onPointerLeave={() => {
-        setHoveredOrFocused((current) => ({ ...current, hovered: false }))
-      }}
-      onFocusCapture={(event) => {
-        if (event.target.matches(":focus-visible")) {
-          setHoveredOrFocused((current) => ({ ...current, focused: true }))
-        }
-      }}
-      onBlurCapture={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) {
-          setHoveredOrFocused((current) => ({ ...current, focused: false }))
-        }
-      }}
     >
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 min-[600px]:px-6 min-[840px]:grid-cols-12 min-[840px]:gap-12 min-[840px]:px-8">
         <div className="flex min-w-0 flex-col items-start min-[840px]:col-span-7">
@@ -81,8 +58,6 @@ export function HeroSection({
         <div className="flex min-w-0 justify-center min-[840px]:col-span-5 min-[840px]:justify-end">
           <HeroSculpture
             telemetry={identity.heroTelemetry}
-            morphed={morphed}
-            onToggleMorph={() => setPinnedMorph((current) => !(current ?? attentionMorph))}
             prefersReducedMotion={prefersReducedMotion}
           />
         </div>

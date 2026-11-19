@@ -78,16 +78,47 @@ describe("portfolio real content", () => {
 })
 
 describe("portfolio hero", () => {
-  it("shows the owner's portrait inside the hero arch", () => {
+  it("shows the owner's professional portrait inside the hero arch", () => {
     renderPortfolio(
       <HeroSection
         identity={portfolioContent.identity}
         sampleDisclosure={portfolioContent.meta.sampleDisclosure}
       />
     )
-    const portrait = screen.getByAltText("Portrait of Muhammad Faza Al-Banna")
+    const portrait = screen.getByAltText("Portrait of Muhammad Faza Al-Banna in a formal suit")
     expect(portrait).toBeVisible()
     expect(portrait).toHaveAttribute("src", expect.stringContaining("data:image/jpeg;base64,"))
+    expect(screen.queryByText(/Geometry:/i)).not.toBeInTheDocument()
+  })
+
+  it("toggles between the professional and campus photos", async () => {
+    const user = userEvent.setup()
+    renderPortfolio(
+      <HeroSection
+        identity={portfolioContent.identity}
+        sampleDisclosure={portfolioContent.meta.sampleDisclosure}
+      />
+    )
+    const professional = screen.getByAltText("Portrait of Muhammad Faza Al-Banna in a formal suit")
+    const professionalSrc = professional.getAttribute("src")
+    expect(professionalSrc).toContain("data:image/jpeg;base64,")
+
+    await user.click(screen.getByRole("button", { name: "Switch to campus photo" }))
+    const campus = screen.getByAltText(
+      "Portrait of Muhammad Faza Al-Banna in a yellow Universitas Indonesia jacket on campus"
+    )
+    expect(campus).toBeVisible()
+    expect(campus.getAttribute("src")).toContain("data:image/jpeg;base64,")
+    expect(campus.getAttribute("src")).not.toBe(professionalSrc)
+    expect(screen.queryByAltText("Portrait of Muhammad Faza Al-Banna in a formal suit")).not.toBeInTheDocument()
+
+    await user.click(screen.getByRole("button", { name: "Switch to professional photo" }))
+    expect(screen.getByAltText("Portrait of Muhammad Faza Al-Banna in a formal suit")).toBeVisible()
+    expect(
+      screen.queryByAltText(
+        "Portrait of Muhammad Faza Al-Banna in a yellow Universitas Indonesia jacket on campus"
+      )
+    ).not.toBeInTheDocument()
   })
 })
 

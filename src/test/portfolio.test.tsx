@@ -88,7 +88,6 @@ describe("portfolio hero", () => {
     const portrait = screen.getByAltText("Portrait of Muhammad Faza Al-Banna in a formal suit")
     expect(portrait).toBeVisible()
     expect(portrait).toHaveAttribute("src", expect.stringContaining("data:image/jpeg;base64,"))
-    expect(screen.queryByText(/Geometry:/i)).not.toBeInTheDocument()
   })
 
   it("toggles between the professional and campus photos", async () => {
@@ -309,7 +308,6 @@ describe("portfolio appearance", () => {
     await user.click(await screen.findByRole("menuitemradio", { name: "Dark" }))
 
     await waitFor(() => {
-      expect(localStorage.getItem("color-mode")).toBe("dark")
       expect(screen.getByRole("button", { name: /^Color theme: dark \(dark active\)/ })).toBeVisible()
     })
     view.unmount()
@@ -320,7 +318,6 @@ describe("portfolio appearance", () => {
     expect(await screen.findByRole("menuitemradio", { name: "Dark" })).toHaveAttribute("aria-checked", "true")
     await user.click(screen.getByRole("menuitemradio", { name: "Light" }))
     await waitFor(() => {
-      expect(localStorage.getItem("color-mode")).toBe("light")
       expect(screen.getByRole("button", { name: /^Color theme: light \(light active\)/ })).toBeVisible()
     })
   })

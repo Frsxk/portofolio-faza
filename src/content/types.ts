@@ -37,7 +37,7 @@ export interface ProjectSchematic {
   caption: string
   aspectWidth: number
   aspectHeight: number
-  isIllustration: true
+  isIllustration: boolean
 }
 
 export interface ProjectLinks {

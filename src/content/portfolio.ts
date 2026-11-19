@@ -6,6 +6,7 @@
 // short reconstructions from the stated stack and description, not verbatim
 // source excerpts. Replace them with real excerpts when the project repos
 // are reviewed.
+import { PROJECT_05_SCREENSHOT_SRC } from "@/assets/project-05-screenshot"
 import type { PortfolioContent, ProjectStudy } from "./types"
 
 const studies = [
@@ -34,12 +35,12 @@ const studies = [
       live: "https://nimenime.netlify.app",
     },
     schematic: {
-      src: "/schematics/project-01-nimenime-hub.svg",
-      alt: "Illustration of the NimeNime Hub update feed: new updates enter a post list, readers open a post, and the post links back to the feed.",
-      caption: "Update feed. New posts enter the list, readers open one post at a time.",
-      aspectWidth: 800,
-      aspectHeight: 500,
-      isIllustration: true,
+      src: "https://i.ibb.co.com/PszbgmD1/image-2025-08-12-171025313.png",
+      alt: "Screenshot of the NimeNime Hub home page: a dark hero reading 'All about Anime & Manga. It's here.' with a Spy x Family Season 2 card.",
+      caption: "Home page. The latest anime and manga news, with a featured story.",
+      aspectWidth: 640,
+      aspectHeight: 305,
+      isIllustration: false,
     },
     architectureNotes: {
       overview:
@@ -86,12 +87,12 @@ const studies = [
       live: "https://knight-of-the-night.netlify.app/",
     },
     schematic: {
-      src: "/schematics/project-02-knight-of-the-night.svg",
-      alt: "Illustration of the Knight of the Night game loop: input moves the knight, the scene updates the world, and the game renders the next frame.",
-      caption: "Game loop. Input, world update, and render repeat every frame.",
-      aspectWidth: 800,
-      aspectHeight: 500,
-      isIllustration: true,
+      src: "https://i.ibb.co.com/DHkZwLXX/image-2025-08-12-171329030.png",
+      alt: "Screenshot of the Knight of the Night start screen: a pixel knight on a brick background with a START button.",
+      caption: "Start screen. The knight, the title, and START.",
+      aspectWidth: 640,
+      aspectHeight: 597,
+      isIllustration: false,
     },
     architectureNotes: {
       overview:
@@ -134,12 +135,12 @@ const studies = [
       "Proposed verification: invite the bot to a test server, run its channel commands, and confirm channels change as expected and the bot stays online. No uptime or usage result is claimed here.",
     inquirySubject: "Discuss Smol Maiden",
     schematic: {
-      src: "/schematics/project-03-smol-maiden.svg",
-      alt: "Illustration of the Smol Maiden bot flow: a command arrives from Discord, the bot checks it, and the bot organizes the server channels.",
-      caption: "Bot flow. A command arrives, the bot checks it, and the channels change.",
-      aspectWidth: 800,
-      aspectHeight: 500,
-      isIllustration: true,
+      src: "https://i.ibb.co.com/5WBcfZHP/image-2025-08-12-171515683.png",
+      alt: "Screenshot of the Smol Maiden Discord profile: the bot's anime avatar, name, and 'I'm frxskie's helper!!' bio.",
+      caption: "Discord profile. The bot's avatar, name, and bio.",
+      aspectWidth: 587,
+      aspectHeight: 556,
+      isIllustration: false,
     },
     architectureNotes: {
       overview:
@@ -185,12 +186,12 @@ const studies = [
       github: "https://github.com/Frsxk/Epic-selfbot",
     },
     schematic: {
-      src: "/schematics/project-04-epic-selfbot.svg",
-      alt: "Illustration of the Epic Selfbot automation flow: a schedule triggers an action, the tool sends it to Epic RPG, and the result is logged.",
-      caption: "Automation flow. A schedule triggers an action, and the result is logged.",
-      aspectWidth: 800,
-      aspectHeight: 500,
-      isIllustration: true,
+      src: "https://i.ibb.co.com/7JCfXJVz/image-2025-08-12-171451444.png",
+      alt: "Screenshot of a terminal running Epic Selfbot: 'Successfully logged in' with completed hunt, work, farm, and training counts.",
+      caption: "Terminal. The bot logs in and reports completed tasks.",
+      aspectWidth: 360,
+      aspectHeight: 188,
+      isIllustration: false,
     },
     architectureNotes: {
       overview:
@@ -237,12 +238,12 @@ const studies = [
       live: "https://faza-al-banna.netlify.app",
     },
     schematic: {
-      src: "/schematics/project-05-portfolio.svg",
-      alt: "Illustration of this portfolio as one page: the hero, the work list, the atelier, and the contact form sit in one column.",
-      caption: "One page. Hero, work, atelier, and contact in a single column.",
+      src: PROJECT_05_SCREENSHOT_SRC,
+      alt: "Screenshot of the rebuilt portfolio home page: the hero with the owner's headline and the Material arch sculpture.",
+      caption: "The rebuilt site. One page, hero first.",
       aspectWidth: 800,
-      aspectHeight: 500,
-      isIllustration: true,
+      aspectHeight: 434,
+      isIllustration: false,
     },
     architectureNotes: {
       overview:

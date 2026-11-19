@@ -58,6 +58,22 @@ describe("portfolio real content", () => {
     expect(screen.getByText("Email address", { exact: true })).toBeVisible()
     expect(screen.getByText(portfolioContent.contact.email, { exact: true })).toBeVisible()
   })
+  it("shows real project photos, not schematic illustrations", () => {
+    renderPortfolio(
+      <>
+        <WorkSection content={portfolioContent} featured={featured} supporting={supporting} />
+        <ContactSection content={portfolioContent.contact} />
+      </>
+    )
+
+    for (const project of portfolioContent.projects) {
+      expect(project.schematic.isIllustration).toBe(false)
+      expect(project.schematic.src).toMatch(/^(https:\/\/|data:image\/)/)
+      const article = screen.getByRole("article", { name: project.title })
+      expect(within(article).getByAltText(/screenshot/i)).toBeVisible()
+    }
+    expect(screen.queryByText("[Schematic Illustration]", { exact: true })).not.toBeInTheDocument()
+  })
 })
 
 describe("portfolio work browser", () => {

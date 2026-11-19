@@ -52,7 +52,9 @@ export function FeaturedStudy({
             </motion.div>
             <figcaption className="flex flex-wrap items-center justify-between gap-2 border-t border-outline-variant/50 bg-surface-container px-4 py-2.5 text-label-medium text-on-surface-variant">
               <span>{project.schematic.caption}</span>
-              <span className="font-mono">[Schematic Illustration]</span>
+              {project.schematic.isIllustration && (
+                <span className="font-mono">[Schematic Illustration]</span>
+              )}
             </figcaption>
           </figure>
         </div>

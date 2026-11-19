@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      (() => {
+        let mode = "system";
+        try {
+          const stored = localStorage.getItem("color-mode");
+          if (stored === "light" || stored === "dark" || stored === "system") {
+            mode = stored;
+          }
+        } catch {
+          // Storage can be unavailable in privacy-restricted browsing.
+        }
+        const resolved =
+          mode === "system"
+            ? window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light"
+            : mode;
+        const root = document.documentElement;
+        root.classList.remove("light", "dark");
+        root.classList.add(resolved);
+        root.style.colorScheme = resolved;
+      })();
+    </script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Muhammad Faza Al-Banna | Information Systems Student &amp; Developer</title>
+    <meta
+      name="description"
+      content="Portfolio of Muhammad Faza Al-Banna, an Information Systems student at University of Indonesia. Web, Discord bots, and games, with five projects and a contact form."
+    />
+    <meta
+      property="og:title"
+      content="Muhammad Faza Al-Banna | Information Systems Student & Developer"
+    />
+    <meta
+      property="og:description"
+      content="Portfolio of Muhammad Faza Al-Banna, an Information Systems student at University of Indonesia. Web, Discord bots, and games."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://faza-al-banna.netlify.app/" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <main
+        style="min-height: 100dvh; padding: clamp(1rem, 5vw, 4rem); background: var(--md-sys-color-surface, Canvas); color: var(--md-sys-color-on-surface, CanvasText); font-family: 'Roboto Flex Variable', system-ui, sans-serif; line-height: 1.5"
+      >
+        <article
+          style="max-width: 48rem; margin-inline: auto; padding: clamp(1rem, 4vw, 3rem); border-radius: 1.75rem; background: var(--md-sys-color-surface-container-low, Canvas)"
+        >
+          <p>Portfolio of Muhammad Faza Al-Banna, Information Systems student at University of Indonesia.</p>
+          <h1>Muhammad Faza Al-Banna</h1>
+          <p>Information Systems Student &amp; Developer</p>
+          <p>I am an undergraduate student at University of Indonesia, majoring in Information Systems. I like programming and computer science, and I learn by building: websites, Discord bots, and games.</p>
+          <h2>Projects</h2>
+          <ul>
+            <li>NimeNime Hub</li>
+            <li>Knight of the Night</li>
+            <li>Smol Maiden</li>
+            <li>Epic Selfbot</li>
+            <li>Portfolio (This Website)</li>
+          </ul>
+          <p>The interactive portfolio requires JavaScript. Enable it to read the complete projects and use the theme controls.</p>
+          <h2>Contact</h2>
+          <p style="overflow-wrap: anywhere">fazaalbanna0410@gmail.com</p>
+        </article>
+      </main>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

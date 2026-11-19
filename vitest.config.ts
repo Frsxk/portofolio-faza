@@ -1,0 +1,23 @@
+import { defineConfig, mergeConfig } from "vitest/config"
+
+import viteConfig from "./vite.config.ts"
+
+export default mergeConfig(
+  viteConfig,
+  defineConfig({
+    test: {
+      environment: "jsdom",
+      setupFiles: ["./src/test/setup.ts"],
+      clearMocks: true,
+      restoreMocks: true,
+      server: {
+        deps: {
+          inline: ["@material/material-color-utilities"],
+        },
+      },
+      environmentOptions: {
+        jsdom: { url: "http://localhost/", pretendToBeVisual: true },
+      },
+    },
+  }),
+)

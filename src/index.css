@@ -1,0 +1,57 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/roboto-flex";
+@import "@fontsource-variable/jetbrains-mono";
+@import "./lib/m3e/m3e.css";
+@import "./styles/palette.css";
+@import "./styles/status.tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Roboto Flex Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    font-family: var(--font-sans);
+  }
+
+  body {
+    min-height: 100dvh;
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    overflow-x: clip;
+  }
+
+  section[id],
+  [data-anchor-target] {
+    scroll-margin-top: 5.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  :root,
+  :root[data-motion] {
+    --md-sys-motion-spring-fast-spatial: linear;
+    --md-sys-motion-spring-default-spatial: linear;
+    --md-sys-motion-spring-slow-spatial: linear;
+    --md-sys-motion-spring-fast-spatial-duration: 0ms;
+    --md-sys-motion-spring-default-spatial-duration: 0ms;
+    --md-sys-motion-spring-slow-spatial-duration: 0ms;
+  }
+
+  [data-slot="shape"] {
+    transition: none !important;
+    will-change: auto !important;
+  }
+}

@@ -21,10 +21,10 @@ const FORM_SUBMIT_URL = "https://formsubmit.co/2c7a81099a9584b7dfd2ef87615d7a2d"
  * its state-layer hover, ripple, and focus ring; only the fill changes.
  */
 const BRAND_BUTTON_CLASS: Record<SocialBrand, string> = {
-  linkedin: "bg-[var(--brand-linkedin)] text-white",
-  github: "bg-[var(--brand-github)] text-white",
-  instagram: "bg-[var(--brand-instagram)] text-white",
-  discord: "bg-[var(--brand-discord)] text-white",
+  linkedin: "bg-[var(--brand-linkedin)] text-[var(--brand-on)]",
+  github: "bg-[var(--brand-github)] text-[var(--brand-on)]",
+  instagram: "bg-[var(--brand-instagram)] text-[var(--brand-on)]",
+  discord: "bg-[var(--brand-discord)] text-[var(--brand-on)]",
 }
 
 type Draft = { name: string; email: string; subject: string; message: string }
@@ -145,7 +145,7 @@ export function ContactSection({ content }: { content: PortfolioContent["contact
             <div className="flex items-start justify-between gap-4">
               <div className="min-w-0">
                 <p className="text-label-large">{content.isSampleEmail ? "Sample email address" : "Email address"}</p>
-                <p className="mt-2 break-all text-title-large select-text">{content.email}</p>
+                <p className="mt-2 text-title-medium break-words select-text min-[600px]:text-title-large">{content.email}</p>
               </div>
               <Shape
                 name={copyState === "success" ? "very-sunny" : copyState === "error" ? "12-sided-cookie" : "sunny"}

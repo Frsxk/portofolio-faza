@@ -134,6 +134,7 @@ export function WorkSection({ content, featured, supporting }: WorkSectionProps)
             {hasFilters && (
               <Button
                 variant="text"
+                size="md"
                 className="min-h-12"
                 onClick={clearFilters}
                 disableRipple={Boolean(prefersReducedMotion)}

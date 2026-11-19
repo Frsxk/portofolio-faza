@@ -22,12 +22,15 @@
  * GitHub 17.89, Instagram 5.11, Discord 4.61. Instagram uses the darker
  * #C13584, not #E1306C (4.34, fails). The same colors apply in light
  * and dark mode, because the button background is the brand color itself.
+ * --brand-on is the white text on those fills, as a token so no literal
+ * white sits in the component.
  */
 :root {
   --brand-linkedin: #0a66c2;
   --brand-github: #181717;
   --brand-instagram: #c13584;
   --brand-discord: #5865f2;
+  --brand-on: #ffffff;
 }
 
 @layer base {

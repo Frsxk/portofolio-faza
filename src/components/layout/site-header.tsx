@@ -40,6 +40,8 @@ export function SiteHeader({
           <span className="text-title-medium font-medium">
             {content.identity.displayName}
           </span>
+          {/* Edition badge only from 420px up: below that the monogram
+              and name already fill the header. */}
           <Badge
             variant="tertiary"
             className="hidden min-[420px]:inline-flex"
